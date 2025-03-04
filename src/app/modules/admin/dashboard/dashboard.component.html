@@ -1,1 +1,91 @@
-<p>dashboard works!</p>
+<section class="bg-white text-gray-900 ">
+  <div class="max-w-screen-2xl p-5 mx-auto">
+    
+    <!-- Dashboard Header -->
+    <h2 class="text-3xl font-bold mb-8">Dashboard</h2>
+
+    <!-- Stats Cards -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+
+      <!-- Total Users -->
+      <div class="bg-blue-100 p-6 rounded border border-gray-200">
+        <div class="flex items-center justify-between">
+          <div>
+            <h3 class="text-xl font-semibold">Total Users</h3>
+            <p class="text-2xl font-bold">{{ totalUsers }}</p>
+          </div>
+          <span class="material-icons text-blue-600 text-4xl">people</span>
+        </div>
+      </div>
+
+      <!-- Total Reservations -->
+      <div class="bg-green-100 p-6 rounded border border-gray-200 ">
+        <div class="flex items-center justify-between">
+          <div>
+            <h3 class="text-xl font-semibold">Reservations</h3>
+            <p class="text-2xl font-bold">{{ totalReservations }}</p>
+          </div>
+          <span class="material-icons text-green-600 text-4xl">event</span>
+        </div>
+      </div>
+
+      <!-- Earnings -->
+      <div class="bg-yellow-100 p-6 rounded border border-gray-200">
+        <div class="flex items-center justify-between">
+          <div>
+            <h3 class="text-xl font-semibold">Earnings</h3>
+            <p class="text-2xl font-bold">${{ totalEarnings }}</p>
+          </div>
+          <span class="material-icons text-yellow-600 text-4xl">attach_money</span>
+        </div>
+      </div>
+
+      <!-- Pending Approvals -->
+      <div class="bg-red-100 p-6 rounded border border-gray-200 ">
+        <div class="flex items-center justify-between">
+          <div>
+            <h3 class="text-xl font-semibold">Pending Approvals</h3>
+            <p class="text-2xl font-bold">{{ pendingApprovals }}</p>
+          </div>
+          <span class="material-icons text-red-600 text-4xl">pending_actions</span>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Recent Reservations Table -->
+    <div class="bg-white border border-gray-200 rounded mt-10 p-6">
+      <h3 class="text-2xl font-semibold mb-4">Recent Reservations</h3>
+      <div class="overflow-x-auto">
+        <table class="min-w-full bg-gray-100 rounded overflow-hidden">
+          <thead>
+            <tr class="bg-gray-200">
+              <th class="p-3 text-left">Name</th>
+              <th class="p-3 text-left">Event Type</th>
+              <th class="p-3 text-left">Date</th>
+              <th class="p-3 text-left">Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let reservation of recentReservations" class="border-b">
+              <td class="p-3">{{ reservation.name }}</td>
+              <td class="p-3">{{ reservation.eventType }}</td>
+              <td class="p-3">{{ reservation.date }}</td>
+              <td class="p-3">
+                <span class="px-2 py-1 rounded text-white"
+                      [ngClass]="{
+                        'bg-green-500': reservation.status === 'Approved',
+                        'bg-yellow-500': reservation.status === 'Pending',
+                        'bg-red-500': reservation.status === 'Rejected'
+                      }">
+                  {{ reservation.status }}
+                </span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </div>
+</section>

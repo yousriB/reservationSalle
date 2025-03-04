@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { EventService, Event } from '../../.././../services/event.service';
 
 @Component({
   selector: 'app-hero',
@@ -6,6 +7,19 @@ import { Component } from '@angular/core';
   templateUrl: './hero.component.html',
   styleUrl: './hero.component.css'
 })
-export class HeroComponent {
+export class HeroComponent implements OnInit {
+  events: Event[] = [];
 
+  constructor(private eventService: EventService) { }
+
+  ngOnInit(): void {
+    this.eventService.getEvents().subscribe(
+      (events) => {
+        this.events = events;
+      },
+      (error) => {
+        console.error('Error fetching events:', error);
+      }
+    );
+  }
 }

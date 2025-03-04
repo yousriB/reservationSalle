@@ -1,1 +1,56 @@
-<p>details works!</p>
+<section class="bg-white text-gray-900  sm:py-16 sm:px-6">
+    <div class="max-w-screen-xl mx-auto">
+      <h2 class="text-3xl font-bold mb-8">Reservation Details</h2>
+  
+      <div class="grid grid-cols-1 sm:grid-cols-2 p-2 gap-4">
+        <div class="col-span-1 bg-white p-5 rounded  border border-gray-300 shadow">
+          <h3 class="text-xl font-semibold mb-4">Personal Information</h3>
+          <ul class="space-y-4">
+            <li><strong>Your Name:</strong> {{ reservationData.name }}</li>
+            <li><strong>Phone Number:</strong> {{ reservationData.phone }}</li>
+            <li><strong>Local:</strong> {{ reservationData.local }}</li>
+            <li><strong>Members Involved:</strong> {{ reservationData.members }}</li>
+          </ul>
+        </div>
+    
+        <div class="col-span-1 bg-white p-5 rounded  border border-gray-300 shadow ">
+          <h3 class="text-xl font-semibold mb-4">Event Details</h3>
+          <ul class="space-y-4">
+            <li><strong>Event Type:</strong> {{ reservationData.eventType }}</li>
+            <li><strong>Food Type:</strong> {{ reservationData.foodType }}</li>
+            <li><strong>Security:</strong> {{ reservationData.security }}</li>
+            <li><strong>Transport:</strong> {{ reservationData.transport }}</li>
+            <li><strong>Decoration:</strong> {{ reservationData.decoration }}</li>
+            <li><strong>Event Date:</strong> {{ reservationData.eventDate }}</li>
+            <li><strong>Duration (hours):</strong> {{ reservationData.duration }}</li>
+          </ul>
+        </div>
+    
+        <div class="col-span-1 bg-white p-5 rounded  border border-gray-300 shadow ">
+          <h3 class="text-xl font-semibold mb-4">Entertainment</h3>
+          <p *ngIf="reservationData.entertainment?.length === 0" class="text-gray-500">No entertainment selected</p>
+          <ul *ngIf="reservationData.entertainment?.length > 0">
+            <li *ngFor="let item of reservationData.entertainment">✅ {{ item }}</li>
+          </ul>
+        </div>
+    
+        <div class="col-span-1 bg-white p-5 rounded  border border-gray-300 shadow ">
+          <h3 class="text-xl font-semibold mb-4">Payment Information</h3>
+          <ul class="space-y-4">
+            <li><strong>Payment Method:</strong> {{ reservationData.paymentMethod }}</li>
+          </ul>
+        </div>
+    
+        <div class="mt-8 flex gap-4">
+          <button (click)="goBack()" class="bg-gray-900 text-white p-3 rounded hover:bg-gray-800 transition">
+            Back to Form
+          </button>
+          <button  class="bg-green-500 text-white p-3 rounded hover:bg-green-600 transition">
+              Proceeed
+            </button>
+        </div>
+      </div>
+  
+    </div>
+  </section>
+  

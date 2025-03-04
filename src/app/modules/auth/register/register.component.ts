@@ -20,7 +20,7 @@ export class RegisterComponent {
     private router: Router
   ) {
     this.registerForm = this.fb.group({
-      fullName: ['', Validators.required],
+      name: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]],
       confirmPassword: ['', Validators.required]
@@ -42,7 +42,7 @@ export class RegisterComponent {
     this.authService.register(this.registerForm.value).subscribe({
       next: (res) => {
         localStorage.setItem('token', res.token);
-        this.router.navigate(['/profile']);
+        this.router.navigate(['/user-reservations']);
       },
       error: (err) => {
         this.errorMessage = err.error.message || 'Registration failed!';

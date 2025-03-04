@@ -5,10 +5,10 @@
       <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
         <div class="mb-4">
           <label class="block text-gray-700">Full Name</label>
-          <input type="text" formControlName="fullName"
+          <input type="text" formControlName="name"
                  class="w-full p-3 border rounded focus:outline-none focus:ring-2 focus:ring-blue-400"
                  placeholder="Enter your full name">
-          <small *ngIf="registerForm.get('fullName')?.invalid && registerForm.get('fullName')?.touched"
+          <small *ngIf="registerForm.get('name')?.invalid && registerForm.get('name')?.touched"
                  class="text-red-500">Name is required</small>
         </div>
   
@@ -54,4 +54,3 @@
       </div>
     </div>
   </div>
-  

@@ -1,121 +1,46 @@
 <section class="bg-white text-gray-900 py-16 px-6">
-  <div class="max-w-screen-2xl mx-auto">
-    <!-- Title -->
-    <h2 class="text-3xl font-bold">Event Reservation</h2>
+  <div class="max-w-screen-xl mx-auto">
+    
+    <!-- Page Header -->
+    <h2 class="text-4xl font-bold mb-8 text-center">My Reservations</h2>
 
-    <!-- Form -->
-    <form [formGroup]="reservationForm" (ngSubmit)="onSubmit()" class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
-      
-      <!-- Name -->
-      <div>
-        <label class="block text-gray-700">Event Name</label>
-        <input type="text" formControlName="name" class="w-full p-2 rounded bg-gray-50 border border-gray-200">
-      </div>
+    <!-- Reservations Grid -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+      <div *ngFor="let reservation of userReservations" 
+           class="bg-white border border-gray-100 p-6 rounded-lg shadow-md transition-transform transform hover:scale-105">
+        
+        <!-- Reservation Header -->
+        <h3 class="text-xl font-semibold mb-2">{{ reservation.eventType }}</h3>
+        <p class="text-gray-500"><strong>Date:</strong> {{ reservation.date }}</p>
+        <p class="text-gray-500"><strong>Location:</strong> {{ reservation.location }}</p>
+        <p class="text-gray-500"><strong>Guests:</strong> {{ reservation.guests }}</p>
 
-      <!-- Phone Number -->
-      <div>
-        <label class="block text-gray-700">Phone Number</label>
-        <input type="tel" formControlName="phone" class="w-full p-2 rounded bg-gray-50 border border-gray-200">
-      </div>
-
-      <!-- Local Selection -->
-      <div>
-        <label class="block text-gray-700">Local</label>
-        <select formControlName="local" class="w-full p-2 rounded bg-gray-50 border border-gray-200">
-          <option *ngFor="let option of locals" [value]="option">{{ option }}</option>
-        </select>
-      </div>
-
-      <!-- Members Involved -->
-      <div>
-        <label class="block text-gray-700">Members Involved</label>
-        <input type="number" formControlName="members" class="w-full p-2 rounded bg-gray-50 border border-gray-200">
-      </div>
-
-      <!-- Event Type -->
-      <div>
-        <label class="block text-gray-700">Event Type</label>
-        <select formControlName="eventType" class="w-full p-2 rounded bg-gray-50 border border-gray-200">
-          <option *ngFor="let event of eventTypes" [value]="event">{{ event }}</option>
-        </select>
-      </div>
-
-      <!-- Food Type -->
-      <div>
-        <label class="block text-gray-700">Food Type</label>
-        <select formControlName="foodType" class="w-full p-2 rounded bg-gray-50 border border-gray-200">
-          <option *ngFor="let food of foodTypes" [value]="food">{{ food }}</option>
-        </select>
-      </div>
-
-      <!-- Security -->
-      <div>
-        <label class="block text-gray-700">Security</label>
-        <select formControlName="security" class="w-full p-2 rounded bg-gray-50 border border-gray-200">
-          <option *ngFor="let security of securityOptions" [value]="security">{{ security }}</option>
-        </select>
-      </div>
-
-      <!-- Transport -->
-      <div>
-        <label class="block text-gray-700">Transport</label>
-        <select formControlName="transport" class="w-full p-2 rounded bg-gray-50 border border-gray-200">
-          <option *ngFor="let transport of transportOptions" [value]="transport">{{ transport }}</option>
-        </select>
-      </div>
-
-      <!-- Decoration Type -->
-      <div>
-        <label class="block text-gray-700">Decoration Type</label>
-        <select formControlName="decoration" class="w-full p-2 rounded bg-gray-50 border border-gray-200">
-          <option *ngFor="let decoration of decorationTypes" [value]="decoration">{{ decoration }}</option>
-        </select>
-      </div>
-
-      <!-- Event Date -->
-      <div>
-        <label class="block text-gray-700">Event Date</label>
-        <input type="date" formControlName="eventDate" class="w-full p-2 rounded bg-gray-50 border border-gray-200">
-      </div>
-      
-
-      <!-- Duration -->
-      <div>
-        <label class="block text-gray-700">Duration (Hours)</label>
-        <input type="number" formControlName="duration" class="w-full p-2 rounded bg-gray-50 border border-gray-200">
-      </div>
-           <!-- Event time -->
-           <div>
-            <label class="block text-gray-700">Event time</label>
-            <input type="time" formControlName="eventTime" class="w-full p-2 rounded bg-gray-50 border border-gray-200">
-          </div>
-
-      <!-- Entertainment -->
-      <div class="col-span-2">
-        <label class="block text-gray-700">Entertainment Options</label>
-        <div class="flex flex-wrap gap-4 mt-2">
-          <label *ngFor="let option of entertainmentOptions" class="flex items-center space-x-2">
-            <input type="checkbox" [value]="option" (change)="toggleEntertainment(option)" class="h-4 w-4">
-            <span>{{ option }}</span>
-          </label>
+        <!-- Status Badge -->
+        <div class="mt-3">
+          <span class="px-3 py-1 text-sm font-medium rounded text-white"
+                [ngClass]="{
+                  'bg-yellow-500 ': reservation.status === 'Pending',
+                  'bg-green-500 ': reservation.status === 'Approved',
+                  'bg-red-500 ': reservation.status === 'Rejected'
+                }">
+            {{ reservation.status }}
+          </span>
         </div>
-      </div>
 
-      <!-- Payment Method -->
-      <div class="col-span-2">
-        <label class="block text-gray-700">Payment Method</label>
-        <select formControlName="paymentMethod" class="w-full p-2 rounded bg-gray-50 border border-gray-200">
-          <option *ngFor="let payment of paymentMethods" [value]="payment">{{ payment }}</option>
-        </select>
-      </div>
+        <!-- Actions -->
+        <div class="mt-6 grid gap-4 grid-cols-3">
+          <button 
+                  class="bg-blue-600 text-white px-4 py-2 rounded-lg shadow-md hover:bg-blue-700 transition">
+            See info
+          </button>
+          <button 
+                  class="bg-red-600 text-white px-4 py-2 rounded-lg shadow-md hover:bg-red-700 transition">
+            Delete
+          </button>
+        </div>
 
-      <!-- Submit Button -->
-      <div class="col-span-2">
-        <button type="submit" class="w-full text-white font-bold bg-blue-500 p-3 rounded hover:bg-blue-600 transition">
-          Submit Reservation
-        </button>
       </div>
+    </div>
 
-    </form>
   </div>
 </section>

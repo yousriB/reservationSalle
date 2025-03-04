@@ -23,7 +23,8 @@ import { AboutComponent } from './modules/landing/components/about/about.compone
 import { ServicesComponent } from './modules/landing/components/services/services.component';
 import { ContactComponent } from './modules/landing/components/contact/contact.component';
 import { TestimonialsComponent } from './modules/landing/components/testimonials/testimonials.component';
-import { GaleryComponent } from './modules/landing/components/galery/galery.component';  // ✅ Import this
+import { GaleryComponent } from './modules/landing/components/galery/galery.component';
+import { FormulaireComponent } from './modules/reservation/formulaire/formulaire.component';  // ✅ Import this
 
 
 @NgModule({
@@ -47,7 +48,8 @@ import { GaleryComponent } from './modules/landing/components/galery/galery.comp
     ServicesComponent,
     ContactComponent,
     TestimonialsComponent,
-    GaleryComponent
+    GaleryComponent,
+    FormulaireComponent
   ],
   imports: [
     BrowserModule,
