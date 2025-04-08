@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { EventService } from '../../../services/event.service';
 
 @Component({
   selector: 'app-formulaire',
@@ -19,7 +20,11 @@ export class FormulaireComponent {
   decorationTypes = ['Classic', 'Modern', 'Custom Theme'];
   entertainmentOptions = ['dj', 'magic show', 'fire work', 'dancer'];
 
-  constructor(private fb: FormBuilder, private router: Router) {
+  constructor(
+    private fb: FormBuilder,
+    private router: Router,
+    private eventService: EventService // Inject EventService
+  ) {
     this.reservationForm = this.fb.group({
       title: ['', Validators.required],
       time: ['', Validators.required],
@@ -46,8 +51,17 @@ export class FormulaireComponent {
   }
 
   onSubmit() {
-    const reservationData = {
-      ...this.reservationForm.value,
-    };
+    const reservationData = this.reservationForm.value;
+
+    this.eventService.createEvent(reservationData).subscribe(
+      (response) => {
+        console.log('Event created successfully:', response);
+        // Optionally, navigate to a success page or display a success message
+      },
+      (error) => {
+        console.error('Error creating event:', error);
+        // Optionally, display an error message to the user
+      }
+    );
   }
 }

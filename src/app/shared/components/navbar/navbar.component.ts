@@ -28,7 +28,6 @@ export class NavbarComponent implements OnInit {
     const token = localStorage.getItem('token');
   
     if (!token) {
-      console.error('No token found');
       return null;
     }
   
