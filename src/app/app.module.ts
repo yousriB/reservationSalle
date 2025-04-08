@@ -18,6 +18,9 @@ import { LoginComponent } from './components/auth/login/login.component';
 import { RegisterComponent } from './components/auth/register/register.component';
 import { UserComponent } from './pages/user/user.component';
 import { AdminComponent } from './pages/admin/admin.component';
+import { GaleryComponent } from './components/landing/galery/galery.component';
+import { LandingComponent } from './pages/landing/landing.component';
+import { FooterComponent } from './components/landing/footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +37,10 @@ import { AdminComponent } from './pages/admin/admin.component';
     LoginComponent,
     RegisterComponent,
     UserComponent,
-    UserReservationsComponent],
+    UserReservationsComponent,
+    GaleryComponent,
+    LandingComponent,
+    FooterComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,

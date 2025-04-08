@@ -1,34 +1,43 @@
 <!-- Services Section -->
-<section class="bg-gray-50 py-20">
-    <div class="mx-auto max-w-6xl px-4">
-      <!-- Section Header -->
-      <div class="mb-12 text-center">
-        <h2 class="mb-4 text-3xl font-bold tracking-tight sm:text-4xl">Our Services</h2>
-        <p class="mx-auto max-w-2xl text-gray-600">
-          We offer a wide range of services to make your event perfect from start to finish
-        </p>
-      </div>
-  
-      <!-- Services Cards -->
-      <div class="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-        <div *ngFor="let service of services" class="transition-all shadow-lg border border-gray-200 rounded p-5 space-y-2">
-          <!-- Card Header -->
-          <div class=" flex flex-col">
-            <div class="mb-4 flex">
-              <i [class]="getIconClass(service.icon)" class=" text-xl"></i>
-            </div>
-            <h3 class="text-xl font-semibold">{{ service.title }}</h3>
-            <p class="text-gray-800">{{ service.description }}</p>
+<section class="bg-gradient-to-br bg-white py-20" id="services">
+  <div class="mx-auto max-w-6xl px-4">
+    <!-- Section Header -->
+    <div class="mb-16 text-center">
+      <h2 class="mb-4 text-4xl font-bold sm:text-5xl md:text-6xl bg-clip-text text-gray-900">
+        Our Services
+      </h2>
+      <p class="mx-auto max-w-2xl text-lg text-gray-600 leading-relaxed">
+        We offer a wide range of services to make your event perfect from start to finish
+      </p>
+    </div>
+
+    <!-- Services Cards -->
+    <div class="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+      <div *ngFor="let service of services" 
+           class="group relative bg-gray-50 shadow-sm rounded-xl p-6 border border-gray-200 transition-all duration-300 hover:shadow-md ">
+        <!-- Card Header -->
+        <div class="flex flex-col space-y-4">
+          <div class="flex items-center justify-center w-12 h-12 rounded-full bg-indigo-100 text-gray-900 group-hover:bg-gray-900 group-hover:text-white transition-colors duration-300">
+            <i [class]="getIconClass(service.icon)" class="text-2xl"></i>
           </div>
-  
-          <!-- Card Content -->
-          <div>
-            <p class="text-gray-700">
-              {{ service.details }}
-            </p>
-          </div>
+          <h3 class="text-xl font-semibold text-gray-900 group-hover:text-gray-900 transition-colors duration-300">
+            {{ service.title }}
+          </h3>
+          <p class="text-gray-600 font-medium">
+            {{ service.description }}
+          </p>
         </div>
+
+        <!-- Card Content -->
+        <div class="mt-4">
+          <p class="text-gray-500 text-sm leading-relaxed">
+            {{ service.details }}
+          </p>
+        </div>
+
+        <!-- Decorative Element -->
+        <div class="absolute inset-0 -z-10 bg-indigo-50 opacity-0 group-hover:opacity-10 rounded-xl transition-opacity duration-300"></div>
       </div>
     </div>
-  </section>
-  
+  </div>
+</section>

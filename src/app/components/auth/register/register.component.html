@@ -1,1 +1,118 @@
-<p>register works!</p>
+<div class="flex justify-center items-center h-screen bg-gray-100">
+  <div class="bg-white p-8 rounded-lg shadow-md w-full sm:w-[500px]">
+    <h2 class="text-2xl font-bold text-center mb-6">Register</h2>
+
+    <form (ngSubmit)="register()">
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
+        <div>
+          <label for="firstName" class="block text-sm font-medium text-gray-700"
+            >First Name</label
+          >
+          <input
+            id="firstName"
+            [(ngModel)]="firstName"
+            name="firstName"
+            type="text"
+            required
+            class="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
+            placeholder="Enter your first name"
+          />
+        </div>
+        <div>
+          <label for="lastName" class="block text-sm font-medium text-gray-700"
+            >Last Name</label
+          >
+          <input
+            id="lastName"
+            [(ngModel)]="lastName"
+            name="lastName"
+            type="text"
+            required
+            class="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
+            placeholder="Enter your last name"
+          />
+        </div>
+      </div>
+
+      <div class="mb-4">
+        <label for="email" class="block text-sm font-medium text-gray-700"
+          >Email</label
+        >
+        <input
+          id="email"
+          [(ngModel)]="email"
+          name="email"
+          type="email"
+          required
+          class="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
+          placeholder="Enter your email"
+        />
+      </div>
+
+      <div class="mb-4">
+        <label for="phone" class="block text-sm font-medium text-gray-700"
+          >Phone</label
+        >
+        <input
+          id="phone"
+          [(ngModel)]="phone"
+          name="phone"
+          type="tel"
+          required
+          class="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
+          placeholder="Enter your phone number"
+        />
+      </div>
+
+      <div class="mb-4">
+        <label for="password" class="block text-sm font-medium text-gray-700"
+          >Password</label
+        >
+        <input
+          id="password"
+          [(ngModel)]="password"
+          name="password"
+          type="password"
+          required
+          class="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
+          placeholder="Enter your password"
+        />
+      </div>
+
+      <div class="mb-6">
+        <label
+          for="confirmPassword"
+          class="block text-sm font-medium text-gray-700"
+          >Confirm Password</label
+        >
+        <input
+          id="confirmPassword"
+          [(ngModel)]="confirmPassword"
+          name="confirmPassword"
+          type="password"
+          required
+          class="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
+          placeholder="Confirm your password"
+        />
+      </div>
+
+      <div class="flex justify-between items-center">
+        <button
+          type="submit"
+          class="w-full py-3 bg-blue-600 text-white rounded-md hover:bg-blue-500"
+        >
+          Register
+        </button>
+      </div>
+    </form>
+
+    <div class="mt-4 text-center">
+      <p class="text-sm">
+        Already have an account?
+        <a routerLink="/login" class="text-blue-600 hover:underline"
+          >Login here</a
+        >
+      </p>
+    </div>
+  </div>
+</div>

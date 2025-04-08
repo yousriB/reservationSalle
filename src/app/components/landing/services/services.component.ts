@@ -7,28 +7,46 @@ import { Component } from '@angular/core';
   styleUrl: './services.component.css'
 })
 export class ServicesComponent {
-  getIconClass(iconName: string): string {
-    return `fas fa-${iconName}`;
+  services = [
+    {
+      title: 'Food & Catering',
+      description: 'Delicious menus for every palate',
+      details: 'From gourmet dishes to casual bites, we cater to your event’s needs with customizable options.',
+      icon: 'fas fa-utensils'
+    },
+    {
+      title: 'Decoration',
+      description: 'Beautiful event aesthetics',
+      details: 'Transform your space with creative and elegant decorations tailored to your theme.',
+      icon: 'fas fa-flower'
+    },
+    {
+      title: 'Transport',
+      description: 'Seamless guest logistics',
+      details: 'Reliable transportation services to ensure your guests arrive comfortably and on time.',
+      icon: 'fas fa-bus'
+    },
+    {
+      title: 'Entertainment',
+      description: 'Unforgettable performances',
+      details: 'Live music, DJs, or special acts to keep your guests engaged and entertained.',
+      icon: 'fas fa-music'
+    },
+    {
+      title: 'Venue Styling',
+      description: 'Stunning visual setups',
+      details: 'Unique decor solutions to elevate your venue’s ambiance and wow your attendees.',
+      icon: 'fas fa-paint-brush'
+    },
+    {
+      title: 'Security',
+      description: 'Peace of mind guaranteed',
+      details: 'Professional security services to ensure your event runs smoothly and safely.',
+      icon: 'fas fa-shield-alt'
+    }
+  ];
+
+  getIconClass(icon: string): string {
+    return icon; // Assumes Font Awesome or similar icon library is included
   }
-// Array of services to display in the cards
-services = [
-  {
-    title: 'Photography',
-    description: 'Professional photography services to capture your special moments',
-    details: 'Our experienced photographers will ensure every beautiful moment is preserved forever.',
-    icon: 'camera'
-  },
-  {
-    title: 'Catering',
-    description: 'Delicious food and beverages for your guests',
-    details: 'From elegant dinners to casual buffets, we provide catering options for every taste and budget.',
-    icon: 'utensils'
-  },
-  {
-    title: 'Decoration',
-    description: 'Beautiful decorations to transform your venue',
-    details: 'Our decoration services include floral arrangements, lighting, table settings, and more.',
-    icon: 'calendar'
-  }
-];
 }
