@@ -1,0 +1,26 @@
+<div class="py-10 px-5 max-w-screen-lg mx-auto min-h-screen bg-gray-50">
+    <!-- Tabs for Account, Reservations, Register -->
+     <h1 class="text-3xl font-bold mb-1">My Profile</h1>
+     <p class="text-gray-600 mb-6">Manage your account and reservations</p>
+    <div class="mb-6 text-center bg-gray-100 border border-gray-200 w-fit rounded-md p-1 space-x-1">
+      <button (click)="setActiveTab('account')" [class.bg-white]="activeTab === 'account'" 
+              class="px-6 py-1 text-lg font-medium text-gray-700 hover:bg-gray-50 rounded-md">
+        Account
+      </button>
+      <button (click)="setActiveTab('reservations')" [class.bg-white]="activeTab === 'reservations'" 
+              class="px-6 py-1 text-lg font-medium text-gray-700 hover:bg-gray-50 rounded-md">
+        Reservations
+      </button>
+    </div>
+  
+    <!-- Account Tab Content -->
+    <div *ngIf="activeTab === 'account'">
+      <app-profile></app-profile>
+    </div>
+  
+    <!-- Reservations Tab Content -->
+    <div *ngIf="activeTab === 'reservations'">
+        <app-user-reservations></app-user-reservations>
+    </div>
+  </div>
+  
