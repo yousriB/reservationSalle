@@ -1,0 +1,67 @@
+<section class="py-20 bg-gray-50">
+    <app-navbar></app-navbar>
+    <div class="mx-auto max-w-4xl px-4 pt-4">
+      <div class="text-center mb-8">
+        <h2 class="text-3xl font-bold text-gray-900 mb-4">Book an Event</h2>
+        <p class="text-lg text-gray-600">Fill in the details below to book your event with us</p>
+      </div>
+  
+      <div class="bg-white p-8 rounded-lg shadow-md">
+        <form (ngSubmit)="submitForm()">
+          <!-- Name -->
+          <div class="mb-4">
+            <label for="name" class="block text-sm font-medium text-gray-700">Full Name</label>
+            <input id="name" [(ngModel)]="bookingForm.name" name="name" type="text" required
+              class="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
+              placeholder="Enter your full name" />
+          </div>
+  
+          <!-- Email -->
+          <div class="mb-4">
+            <label for="email" class="block text-sm font-medium text-gray-700">Email Address</label>
+            <input id="email" [(ngModel)]="bookingForm.email" name="email" type="email" required
+              class="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
+              placeholder="Enter your email address" />
+          </div>
+  
+          <!-- Event Type -->
+          <div class="mb-4">
+            <label for="eventType" class="block text-sm font-medium text-gray-700">Event Type</label>
+            <select id="eventType" [(ngModel)]="bookingForm.eventType" name="eventType" required
+              class="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400">
+              <option value="" disabled selected>Select event type</option>
+              <option value="Wedding">Wedding</option>
+              <option value="Corporate Event">Corporate Event</option>
+              <option value="Birthday Party">Birthday Party</option>
+              <option value="Anniversary">Anniversary</option>
+              <option value="Other">Other</option>
+            </select>
+          </div>
+  
+          <!-- Event Date -->
+          <div class="mb-4">
+            <label for="eventDate" class="block text-sm font-medium text-gray-700">Event Date</label>
+            <input id="eventDate" [(ngModel)]="bookingForm.eventDate" name="eventDate" type="date" required
+              class="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400" />
+          </div>
+  
+          <!-- Message -->
+          <div class="mb-6">
+            <label for="message" class="block text-sm font-medium text-gray-700">Additional Information</label>
+            <textarea id="message" [(ngModel)]="bookingForm.message" name="message" rows="4"
+              class="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
+              placeholder="Provide any additional information about your event"></textarea>
+          </div>
+  
+          <!-- Submit Button -->
+          <div class="flex justify-center">
+            <button type="submit"
+              class="w-full py-3 bg-blue-600 text-white rounded-md hover:bg-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-400">
+              Submit Booking
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+  

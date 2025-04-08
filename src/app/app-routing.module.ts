@@ -5,6 +5,7 @@ import { LoginComponent } from './components/auth/login/login.component';
 import { RegisterComponent } from './components/auth/register/register.component';
 import { UserComponent } from './pages/user/user.component';
 import { AdminComponent } from './pages/admin/admin.component';
+import { BookingComponent } from './components/landing/booking/booking.component';
 
 const routes: Routes = [
   {
@@ -27,6 +28,10 @@ const routes: Routes = [
     path: 'user',
     component: UserComponent
   },  
+  {
+    path: 'booking',
+    component: BookingComponent
+  }, 
   {
     path: '**',
     redirectTo: ''

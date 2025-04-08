@@ -21,6 +21,7 @@ import { AdminComponent } from './pages/admin/admin.component';
 import { GaleryComponent } from './components/landing/galery/galery.component';
 import { LandingComponent } from './pages/landing/landing.component';
 import { FooterComponent } from './components/landing/footer/footer.component';
+import { BookingComponent } from './components/landing/booking/booking.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +41,8 @@ import { FooterComponent } from './components/landing/footer/footer.component';
     UserReservationsComponent,
     GaleryComponent,
     LandingComponent,
-    FooterComponent],
+    FooterComponent,
+    BookingComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
