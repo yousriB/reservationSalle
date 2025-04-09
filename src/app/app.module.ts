@@ -42,7 +42,8 @@ import { BookingComponent } from './components/landing/booking/booking.component
     GaleryComponent,
     LandingComponent,
     FooterComponent,
-    BookingComponent],
+    BookingComponent,
+],
   imports: [
     BrowserModule,
     AppRoutingModule,
