@@ -7,18 +7,35 @@ import { Component } from '@angular/core';
   styleUrl: './booking.component.css'
 })
 export class BookingComponent {
-  // Initialize form fields
   bookingForm = {
-    name: '',
-    email: '',
-    eventType: '',
-    eventDate: '',
-    message: ''
+    title: '',
+    time: '',
+    date: '',
+    foodType: '',
+    decorationType: '',
+    numberOfSeats: null,
+    typeEvent: '',
+    local: '',
+    transport: false,
+    security: false,
+    entertainment: [] as string[]
   };
 
-  // Function to handle form submission
+  entertainment = {
+    dj: false,
+    magicShow: false,
+    fireWork: false,
+    dancer: false
+  };
+
+  updateEntertainment() {
+    this.bookingForm.entertainment = Object.keys(this.entertainment)
+      .filter(key => this.entertainment[key as keyof typeof this.entertainment])
+      .map(key => key === 'magicShow' ? 'magic show' : (key === 'fireWork' ? 'fire work' : key));
+  }
+
   submitForm() {
-    console.log('Booking details:', this.bookingForm);
-    // Here you can add your logic to send the data to a backend API
+    console.log(this.bookingForm);
+    // Call your backend API to submit the form data
   }
 }

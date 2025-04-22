@@ -1,67 +1,145 @@
 <section class="py-20 bg-gray-50">
-    <app-navbar></app-navbar>
-    <div class="mx-auto max-w-4xl px-4 pt-4">
-      <div class="text-center mb-8">
-        <h2 class="text-3xl font-bold text-gray-900 mb-4">Book an Event</h2>
-        <p class="text-lg text-gray-600">Fill in the details below to book your event with us</p>
-      </div>
-  
-      <div class="bg-white p-8 rounded-lg shadow-md">
-        <form (ngSubmit)="submitForm()">
-          <!-- Name -->
-          <div class="mb-4">
-            <label for="name" class="block text-sm font-medium text-gray-700">Full Name</label>
-            <input id="name" [(ngModel)]="bookingForm.name" name="name" type="text" required
-              class="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
-              placeholder="Enter your full name" />
-          </div>
-  
-          <!-- Email -->
-          <div class="mb-4">
-            <label for="email" class="block text-sm font-medium text-gray-700">Email Address</label>
-            <input id="email" [(ngModel)]="bookingForm.email" name="email" type="email" required
-              class="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
-              placeholder="Enter your email address" />
-          </div>
-  
-          <!-- Event Type -->
-          <div class="mb-4">
-            <label for="eventType" class="block text-sm font-medium text-gray-700">Event Type</label>
-            <select id="eventType" [(ngModel)]="bookingForm.eventType" name="eventType" required
-              class="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400">
-              <option value="" disabled selected>Select event type</option>
-              <option value="Wedding">Wedding</option>
-              <option value="Corporate Event">Corporate Event</option>
-              <option value="Birthday Party">Birthday Party</option>
-              <option value="Anniversary">Anniversary</option>
-              <option value="Other">Other</option>
-            </select>
-          </div>
-  
-          <!-- Event Date -->
-          <div class="mb-4">
-            <label for="eventDate" class="block text-sm font-medium text-gray-700">Event Date</label>
-            <input id="eventDate" [(ngModel)]="bookingForm.eventDate" name="eventDate" type="date" required
-              class="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400" />
-          </div>
-  
-          <!-- Message -->
-          <div class="mb-6">
-            <label for="message" class="block text-sm font-medium text-gray-700">Additional Information</label>
-            <textarea id="message" [(ngModel)]="bookingForm.message" name="message" rows="4"
-              class="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
-              placeholder="Provide any additional information about your event"></textarea>
-          </div>
-  
-          <!-- Submit Button -->
-          <div class="flex justify-center">
-            <button type="submit"
-              class="w-full py-3 bg-blue-600 text-white rounded-md hover:bg-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-400">
-              Submit Booking
-            </button>
-          </div>
-        </form>
-      </div>
+  <app-navbar></app-navbar>
+  <div class="mx-auto max-w-4xl px-4 pt-4">
+    <div class="text-center mb-8">
+      <h2 class="text-3xl font-bold text-gray-900 mb-4">Book an Event</h2>
+      <p class="text-lg text-gray-600">Fill in the details below to book your event with us</p>
     </div>
-  </section>
-  
+
+    <div class="bg-white p-8 rounded-lg shadow-md ">
+      <form (ngSubmit)="submitForm()" class="grid grid-cols-2 gap-4">
+        <!-- Title -->
+        <div class="mb-4">
+          <label for="title" class="block text-sm font-medium text-gray-700">Event Title</label>
+          <input id="title" [(ngModel)]="bookingForm.title" name="title" type="text" required
+            class="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
+            placeholder="Enter the event title" />
+        </div>
+
+        <!-- Time -->
+        <div class="mb-4">
+          <label for="time" class="block text-sm font-medium text-gray-700">Event Time</label>
+          <input id="time" [(ngModel)]="bookingForm.time" name="time" type="time" required
+            class="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400" />
+        </div>
+
+        <!-- Date -->
+        <div class="mb-4">
+          <label for="date" class="block text-sm font-medium text-gray-700">Event Date</label>
+          <input id="date" [(ngModel)]="bookingForm.date" name="date" type="date" required
+            class="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400" />
+        </div>
+
+        <!-- Food Type -->
+        <div class="mb-4">
+          <label for="foodType" class="block text-sm font-medium text-gray-700">Food Type</label>
+          <select name="foodType" id="foodType" [(ngModel)]="bookingForm.foodType" required class="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400">
+            <option value="" disabled selected>Select food type</option>
+            <option value="italian">Italian</option>
+            <option value="buffet">Buffet</option>
+            <option value="vegan">Vegan</option>
+          </select>
+        </div>
+
+        <!-- Decoration Type -->
+        <div class="mb-4">
+          <label for="decorationType" class="block text-sm font-medium text-gray-700">Decoration Type</label>
+          <select name="decorationType" id="decorationType" [(ngModel)]="bookingForm.decorationType" required class="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400">
+            <option value="" disabled selected>Select decoration type</option>
+            <option value="floral">Floral</option>
+            <option value="modern">Modern</option>
+            <option value="vintage">Vintage</option>
+          </select>
+        </div>
+
+        <!-- Number of Seats -->
+        <div class="mb-4">
+          <label for="numberOfSeats" class="block text-sm font-medium text-gray-700">Number of Seats</label>
+          <input id="numberOfSeats" [(ngModel)]="bookingForm.numberOfSeats" name="numberOfSeats" type="number" required
+            class="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
+            placeholder="Enter number of seats" />
+        </div>
+
+        <!-- Event Type -->
+        <div class="mb-4">
+          <label for="typeEvent" class="block text-sm font-medium text-gray-700">Event Type</label>
+          <select id="typeEvent" [(ngModel)]="bookingForm.typeEvent" name="typeEvent" required
+            class="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400">
+            <option value="" disabled selected>Select event type</option>
+            <option value="birthday">Birthday</option>
+            <option value="marriage">Marriage</option>
+          </select>
+        </div>
+
+        <!-- Location -->
+        <div class="mb-4">
+          <label for="local" class="block text-sm font-medium text-gray-700">Location</label>
+          <select id="local" [(ngModel)]="bookingForm.local" name="local" required
+            class="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400">
+            <option value="" disabled selected>Select location</option>
+            <option value="salle 1">Salle 1</option>
+            <option value="salle2">Salle 2</option>
+            <option value="home">Home</option>
+          </select>
+        </div>
+
+        <!-- Transport -->
+        <div class="mb-4">
+          <label class="flex items-center">
+            <input type="checkbox" [(ngModel)]="bookingForm.transport" name="transport"
+              class="h-4 w-4 text-blue-600 focus:ring-blue-400 border-gray-300 rounded" />
+            <span class="ml-2 text-sm text-gray-700">Require Transport</span>
+          </label>
+        </div>
+
+        <!-- Security -->
+        <div class="mb-4">
+          <label class="flex items-center">
+            <input type="checkbox" [(ngModel)]="bookingForm.security" name="security"
+              class="h-4 w-4 text-blue-600 focus:ring-blue-400 border-gray-300 rounded" />
+            <span class="ml-2 text-sm text-gray-700">Require Security</span>
+          </label>
+        </div>
+
+        <!-- Entertainment -->
+        <div class="mb-6">
+          <label class="block text-sm font-medium text-gray-700">Entertainment Options</label>
+          <div class="space-y-2">
+            <label class="flex items-center">
+              <input type="checkbox" [(ngModel)]="entertainment.dj" name="entertainment_dj"
+                class="h-4 w-4 text-blue-600 focus:ring-blue-400 border-gray-300 rounded"
+                (change)="updateEntertainment()" />
+              <span class="ml-2 text-sm text-gray-700">DJ</span>
+            </label>
+            <label class="flex items-center">
+              <input type="checkbox" [(ngModel)]="entertainment.magicShow" name="entertainment_magicShow"
+                class="h-4 w-4 text-blue-600 focus:ring-blue-400 border-gray-300 rounded"
+                (change)="updateEntertainment()" />
+              <span class="ml-2 text-sm text-gray-700">Magic Show</span>
+            </label>
+            <label class="flex items-center">
+              <input type="checkbox" [(ngModel)]="entertainment.fireWork" name="entertainment_fireWork"
+                class="h-4 w-4 text-blue-600 focus:ring-blue-400 border-gray-300 rounded"
+                (change)="updateEntertainment()" />
+              <span class="ml-2 text-sm text-gray-700">Fire Work</span>
+            </label>
+            <label class="flex items-center">
+              <input type="checkbox" [(ngModel)]="entertainment.dancer" name="entertainment_dancer"
+                class="h-4 w-4 text-blue-600 focus:ring-blue-400 border-gray-300 rounded"
+                (change)="updateEntertainment()" />
+              <span class="ml-2 text-sm text-gray-700">Dancer</span>
+            </label>
+          </div>
+        </div>
+
+        <!-- Submit Button -->
+        <div class="flex justify-end col-span-2 ">
+          <button type="submit"
+            class="w-fit h-fit py-3 px-5 bg-blue-600 text-white rounded-md hover:bg-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-400">
+            Submit Booking
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
