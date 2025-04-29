@@ -1,0 +1,158 @@
+<section class="py-20 bg-gray-50">
+  <app-navbar></app-navbar>
+  <div class="mx-auto max-w-4xl px-4 pt-4">
+    <div class="text-center mb-8">
+      <h2 class="text-3xl font-bold text-gray-900 mb-4">Book an Event</h2>
+      <p class="text-lg text-gray-600">Fill in the details below to book your event with us</p>
+    </div>
+
+    <div class="bg-white p-8 rounded-lg shadow-md ">
+      <form (ngSubmit)="submitForm()" class="grid grid-cols-2 gap-4">
+        <div class="mb-4">
+          <label for="title" class="block text-sm font-medium text-gray-700">Event Title</label>
+          <input id="title" [(ngModel)]="bookingForm.title" name="title" type="text" required
+            class="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
+            placeholder="Enter the event title" #titleInput="ngModel" />
+          <div *ngIf="titleInput.invalid && (titleInput.dirty || titleInput.touched)" class="text-red-500 text-sm mt-1">
+            Event title is required.
+          </div>
+        </div>
+
+        <div class="mb-4">
+          <label for="time" class="block text-sm font-medium text-gray-700">Event Time</label>
+          <input id="time" [(ngModel)]="bookingForm.time" name="time" type="time" required
+            class="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400" #timeInput="ngModel" />
+          <div *ngIf="timeInput.invalid && (timeInput.dirty || timeInput.touched)" class="text-red-500 text-sm mt-1">
+            Event time is required.
+          </div>
+        </div>
+
+        <div class="mb-4">
+          <label for="date" class="block text-sm font-medium text-gray-700">Event Date</label>
+          <input id="date" [(ngModel)]="bookingForm.date" name="date" type="date" required
+            class="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400" #dateInput="ngModel" />
+          <div *ngIf="dateInput.invalid && (dateInput.dirty || dateInput.touched)" class="text-red-500 text-sm mt-1">
+            Event date is required.
+          </div>
+        </div>
+
+        <div class="mb-4">
+          <label for="foodType" class="block text-sm font-medium text-gray-700">Food Type</label>
+          <select name="foodType" id="foodType" [(ngModel)]="bookingForm.foodType" required class="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400" #foodTypeInput="ngModel">
+            <option value="" disabled selected>Select food type</option>
+            <option value="italian">Italian</option>
+            <option value="buffet">Buffet</option>
+            <option value="vegan">Vegan</option>
+          </select>
+          <div *ngIf="foodTypeInput.invalid && (foodTypeInput.dirty || foodTypeInput.touched)" class="text-red-500 text-sm mt-1">
+            Please select a food type.
+          </div>
+        </div>
+
+        <div class="mb-4">
+          <label for="decorationType" class="block text-sm font-medium text-gray-700">Decoration Type</label>
+          <select name="decorationType" id="decorationType" [(ngModel)]="bookingForm.decorationType" required class="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400" #decorationTypeInput="ngModel">
+            <option value="" disabled selected>Select decoration type</option>
+            <option value="floral">Floral</option>
+            <option value="modern">Modern</option>
+            <option value="vintage">Vintage</option>
+          </select>
+          <div *ngIf="decorationTypeInput.invalid && (decorationTypeInput.dirty || decorationTypeInput.touched)" class="text-red-500 text-sm mt-1">
+            Please select a decoration type.
+          </div>
+        </div>
+
+        <div class="mb-4">
+          <label for="numberOfSeats" class="block text-sm font-medium text-gray-700">Number of Seats</label>
+          <input id="numberOfSeats" [(ngModel)]="bookingForm.numberOfSeats" name="numberOfSeats" type="number" required
+            class="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
+            placeholder="Enter number of seats" #numberOfSeatsInput="ngModel" />
+          <div *ngIf="numberOfSeatsInput.invalid && (numberOfSeatsInput.dirty || numberOfSeatsInput.touched)" class="text-red-500 text-sm mt-1">
+            Number of seats is required.
+          </div>
+        </div>
+
+        <div class="mb-4">
+          <label for="typeEvent" class="block text-sm font-medium text-gray-700">Event Type</label>
+          <select id="typeEvent" [(ngModel)]="bookingForm.typeEvent" name="typeEvent" required
+            class="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400" #typeEventInput="ngModel">
+            <option value="" disabled selected>Select event type</option>
+            <option value="birthday">Birthday</option>
+            <option value="marriage">Marriage</option>
+          </select>
+          <div *ngIf="typeEventInput.invalid && (typeEventInput.dirty || typeEventInput.touched)" class="text-red-500 text-sm mt-1">
+            Please select an event type.
+          </div>
+        </div>
+
+        <div class="mb-4">
+          <label for="local" class="block text-sm font-medium text-gray-700">Location</label>
+          <select id="local" [(ngModel)]="bookingForm.local" name="local" required
+            class="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400" #localInput="ngModel">
+            <option value="" disabled selected>Select location</option>
+            <option value="salle 1">Salle 1</option>
+            <option value="salle2">Salle 2</option>
+            <option value="home">Home</option>
+          </select>
+          <div *ngIf="localInput.invalid && (localInput.dirty || localInput.touched)" class="text-red-500 text-sm mt-1">
+            Please select a location.
+          </div>
+        </div>
+
+        <div class="mb-4">
+          <label class="flex items-center">
+            <input type="checkbox" [(ngModel)]="bookingForm.transport" name="transport"
+              class="h-4 w-4 text-blue-600 focus:ring-blue-400 border-gray-300 rounded" />
+            <span class="ml-2 text-sm text-gray-700">Require Transport</span>
+          </label>
+          </div>
+
+        <div class="mb-4">
+          <label class="flex items-center">
+            <input type="checkbox" [(ngModel)]="bookingForm.security" name="security"
+              class="h-4 w-4 text-blue-600 focus:ring-blue-400 border-gray-300 rounded" />
+            <span class="ml-2 text-sm text-gray-700">Require Security</span>
+          </label>
+          </div>
+
+        <div class="mb-6">
+          <label class="block text-sm font-medium text-gray-700">Entertainment Options</label>
+          <div class="space-y-2">
+            <label class="flex items-center">
+              <input type="checkbox" [(ngModel)]="entertainment.dj" name="dj"
+                class="h-4 w-4 text-blue-600 focus:ring-blue-400 border-gray-300 rounded"
+                (change)="updateEntertainment()" />
+              <span class="ml-2 text-sm text-gray-700">DJ</span>
+            </label>
+            <label class="flex items-center">
+              <input type="checkbox" [(ngModel)]="entertainment.magicShow" name="magicShow"
+                class="h-4 w-4 text-blue-600 focus:ring-blue-400 border-gray-300 rounded"
+                (change)="updateEntertainment()" />
+              <span class="ml-2 text-sm text-gray-700">Magic Show</span>
+            </label>
+            <label class="flex items-center">
+              <input type="checkbox" [(ngModel)]="entertainment.fireWork" name="fireWork"
+                class="h-4 w-4 text-blue-600 focus:ring-blue-400 border-gray-300 rounded"
+                (change)="updateEntertainment()" />
+              <span class="ml-2 text-sm text-gray-700">Fire Work</span>
+            </label>
+            <label class="flex items-center">
+              <input type="checkbox" [(ngModel)]="entertainment.dancer" name="dancer"
+                class="h-4 w-4 text-blue-600 focus:ring-blue-400 border-gray-300 rounded"
+                (change)="updateEntertainment()" />
+              <span class="ml-2 text-sm text-gray-700">Dancer</span>
+            </label>
+          </div>
+          </div>
+
+        <div class="flex justify-end col-span-2 ">
+          <button type="submit"
+            [disabled]="!titleInput.valid || !timeInput.valid || !dateInput.valid || !foodTypeInput.valid || !decorationTypeInput.valid || !numberOfSeatsInput.valid || !typeEventInput.valid || !localInput.valid"
+            class="w-fit h-fit py-3 px-5 bg-blue-600 text-white rounded-md">
+            Submit Booking
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>

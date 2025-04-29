@@ -1,0 +1,7 @@
+/* Additional custom styles for the mobile menu */
+@media (max-width: 1024px) {
+    .lg:hidden {
+      display: block;
+    }
+  }
+  

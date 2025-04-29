@@ -1,0 +1,40 @@
+<div>
+  <app-navbar></app-navbar>
+
+  <div class="py-10 px-5 max-w-screen-lg mx-auto min-h-screen pt-24 bg-gray-50">
+    <h1 class="text-3xl font-bold mb-1">Admin Dashboard</h1>
+    <p class="text-gray-600 mb-6">Manage reservations, users, and services</p>
+    <!-- Tabs for Reservations, Users, Services -->
+    <div  class="mb-6 text-center bg-gray-100 border border-gray-200 w-fit rounded-md p-1 space-x-1">
+      <button (click)="setActiveTab('reservations')" [class.bg-white]="activeTab === 'reservations'" 
+              class="px-6 py-1 text-lg font-medium text-gray-700 hover:bg-gray-50 rounded-md">
+        Reservations
+      </button>
+      <button (click)="setActiveTab('users')" [class.bg-white]="activeTab === 'users'" 
+              class="px-6 py-1 text-lg font-medium text-gray-700 hover:bg-gray-50 rounded-md">
+        Users
+      </button>
+      <button (click)="setActiveTab('services')" [class.bg-white]="activeTab === 'services'" 
+              class="px-6 py-1 text-lg font-medium text-gray-700 hover:bg-gray-50 rounded-md">
+        Services
+      </button>
+    </div>
+  
+    <!-- Reservations Tab Content -->
+    <div *ngIf="activeTab === 'reservations'">
+      <app-reservations></app-reservations>
+    </div>
+  
+    <!-- Users Tab Content -->
+    <div *ngIf="activeTab === 'users'">
+      <app-users></app-users>
+    </div>
+  
+    <!-- Services Tab Content -->
+    <div *ngIf="activeTab === 'services'">
+      <app-services-management></app-services-management>
+    </div>
+  </div>
+  <app-footer></app-footer>
+</div>
+  

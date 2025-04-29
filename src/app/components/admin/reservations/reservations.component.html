@@ -1,0 +1,47 @@
+<div class="bg-white p-6 rounded-lg shadow-md">
+    
+  
+    <div class="flex justify-between items-start mb-6">
+      <div class="flex flex-col">
+        <h2 class="text-2xl font-semibold mb-4">Reservation Management</h2>
+    <p class="text-gray-600 mb-6">Approve or reject event reservations</p>
+      </div>
+      <button class="bg-black text-white py-2 px-4 rounded-md hover:bg-gray-800">Add Reservation</button>
+    </div>
+  
+  <div class="overflow-auto ">
+    <table class="w-full bg-white border border-gray-300 min-w-[700px]">
+      <thead class="border-b border-gray-300 bg-gray-100">
+        <tr>
+          <th class="px-6 py-3 text-left text-sm font-medium text-gray-500">Customer</th>
+          <th class="px-6 py-3 text-left text-sm font-medium text-gray-500">Event</th>
+          <th class="px-6 py-3 text-left text-sm font-medium text-gray-500">Date</th>
+          <th class="px-6 py-3 text-left text-sm font-medium text-gray-500">Status</th>
+          <th class="px-6 py-3 text-left text-sm font-medium text-gray-500">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="border-b border-gray-300" *ngFor="let reservation of reservations">
+          <td class="px-6 py-4 text-sm text-gray-900">{{ reservation.customer }}</td>
+          <td class="px-6 py-4 text-sm text-gray-900">{{ reservation.event }}</td>
+          <td class="px-6 py-4 text-sm text-gray-900">{{ reservation.date }}</td>
+          <td class="px-6 py-4 text-sm text-gray-900 font-medium">
+            <span [ngClass]="{'text-green-500': reservation.status === 'Approved', 'text-yellow-500': reservation.status === 'Pending'}">
+              {{ reservation.status }}
+            </span>
+          </td>
+          <td class="px-6 py-4 text-sm text-gray-900">
+          <select class="border border-gray-300 rounded-md p-1 px-3">
+            <option value="">Select</option>
+            <option value="Approved">Approved</option>
+            <option value="Rejected">Rejected</option>
+            <option value="">See Details</option>
+
+          </select>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  </div>
+  

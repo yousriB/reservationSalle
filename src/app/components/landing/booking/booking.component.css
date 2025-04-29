@@ -1,0 +1,11 @@
+.success-snackbar {
+  background-color: #4caf50; /* Green background */
+  color: white; /* White text */
+  font-weight: bold; /* Bold text */
+}
+
+.error-snackbar {
+  background-color: #f44336; /* Red background */
+  color: white; /* White text */
+  font-weight: bold; /* Bold text */
+}

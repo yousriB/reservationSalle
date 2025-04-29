@@ -1,0 +1,30 @@
+<div class="bg-white p-6 rounded-lg shadow-md overflow-auto">
+    <h2 class="text-2xl font-semibold mb-4">Reservation History</h2>
+    <p class="text-gray-600 mb-6">View and manage your event reservations</p>
+  
+    <table class="min-w-[700px] bg-white border border-gray-200 w-full">
+      <thead>
+        <tr class="bg-gray-100">
+          <th class="px-6 py-3 text-left text-sm font-medium text-gray-500">Event</th>
+          <th class="px-6 py-3 text-left text-sm font-medium text-gray-500">Date</th>
+          <th class="px-6 py-3 text-left text-sm font-medium text-gray-500">Status</th>
+          <th class="px-6 py-3 text-left text-sm font-medium text-gray-500">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let reservation of reservations">
+          <td class="px-6 py-4 text-base text-gray-900 border-b border-b-gray-200">{{ reservation.event }}</td>
+          <td class="px-6 py-4 text-base text-gray-900 border-b border-b-gray-200">{{ reservation.date }}</td>
+          <td class="px-6 py-4 text-base text-gray-900 border-b border-b-gray-200">
+            <span [ngClass]="{'text-green-500': reservation.status === 'Confirmed', 'text-yellow-500': reservation.status === 'Pending'}">
+              {{ reservation.status }}
+            </span>
+          </td>
+          <td class="px-6 py-4 text-sm text-gray-700 border-b border-b-gray-200">
+            <button class="text-black border border-gray-300 p-1 px-3 rounded hover:bg-gray-100">View Details</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  

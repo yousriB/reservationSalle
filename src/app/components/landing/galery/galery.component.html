@@ -1,0 +1,28 @@
+<div class="py-16">
+  <div class="text-center mb-12">
+    <h2 class="text-orange-600 text-lg">
+      Les incontournables de l'événementiel
+    </h2>
+    <p
+      class="text-3xl sm:text-5xl font-bold mb-4 uppercase sm:leading-snug max-w-2xl mx-auto"
+    >
+      Les musts de la création et de l'organisation d'un événement
+    </p>
+    <div class="w-full max-w-sm h-1 bg-orange-600 mx-auto mt-2"></div>
+  </div>
+
+  <!-- Image Grid -->
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    <div class="relative" *ngFor="let image of images">
+      <div class="w-full h-96 group overflow-hidden relative">
+        <img
+          [src]="image"
+          alt="Image 1"
+          class="w-full h-full object-cover shadow-lg group-hover:scale-110 transition-transform duration-300"
+        />
+        <p class="absolute inset-0  items-center justify-center w-full text-5xl text-white uppercase hidden group-hover:flex transition-transform duration-300 z-50">text </p>
+        <div class="absolute inset-0 bg-orange-500 opacity-0 group-hover:opacity-60 duration-300"></div>
+      </div>
+    </div>
+  </div>
+</div>
