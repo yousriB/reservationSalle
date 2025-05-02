@@ -6,6 +6,7 @@ import { RegisterComponent } from './components/auth/register/register.component
 import { UserComponent } from './pages/user/user.component';
 import { AdminComponent } from './pages/admin/admin.component';
 import { BookingComponent } from './components/landing/booking/booking.component';
+import { ReservationDetailsComponent } from './components/admin/reservation-details/reservation-details.component';
 
 const routes: Routes = [
   {
@@ -31,6 +32,9 @@ const routes: Routes = [
   {
     path: 'booking',
     component: BookingComponent
+  }, 
+  { path: 'reservation-details/:id',
+    component: ReservationDetailsComponent 
   }, 
   {
     path: '**',

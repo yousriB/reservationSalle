@@ -32,14 +32,25 @@ loginUser(email: string, password: string): Observable<any> {
 }
 
   // Get current user info
-  getCurrentUser(token: string): Observable<any> {
-    return this.http.get<any>(`${this.apiUrl}/me`);
+  getCurrentUser(userId: any): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/profile`,{params:{userId}});
   }
 
-  // Update user profile
-  updateUser(user: any): Observable<any> {
-    return this.http.put<any>(`${this.apiUrl}/me`, user);
+  // Function to update user details
+  updateUser(userId: string, name: string, email: string, phoneNumber: string, password: string): Observable<any> {
+    const url = `${this.apiUrl}/update/${userId}`;
+
+    const body = {
+      name,
+      email,
+      phoneNumber,
+      password,
+    };
+
+    // Send PUT request to the backend with the updated user data
+    return this.http.put<any>(url, body);
   }
+
 
   isLoggedIn(){
     let token = localStorage.getItem('token');

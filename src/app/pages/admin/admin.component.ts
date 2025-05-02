@@ -7,10 +7,10 @@ import { Component } from '@angular/core';
   styleUrl: './admin.component.css'
 })
 export class AdminComponent {
-  activeTab = 'reservations'; // Default tab is 'reservations'
+  activeTab: string = 'reservations';  // Default active tab is reservations
 
-  // Function to change the active tab
-  setActiveTab(tab: string) {
+  // Set the active tab and pass the selected reservation ID
+  setActiveTab(tab: string): void {
     this.activeTab = tab;
   }
 }

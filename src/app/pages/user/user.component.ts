@@ -19,17 +19,18 @@ export class UserComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.getCurrentUser();
+     // Check if token exists in localStorage
+     const userId = localStorage.getItem('userId');
+     if (!userId) {
+       // Redirect to login if no token is found
+       this.router.navigate(['/login']);
+     }
+     this.getCurrentUser(userId);
   }
-  getCurrentUser() {
-    const token = localStorage.getItem('token');
-    if (!token) {
-      return null;
-    }
-    return this.userService.getCurrentUser(token).subscribe({
+  getCurrentUser(userId:any) {
+    return this.userService.getCurrentUser(userId).subscribe({
       next: (user) => {
         this.currentUser = user;
-        console.log(this.currentUser);
       },
       error: (error) => {
         console.error('Failed to get current user:', error);

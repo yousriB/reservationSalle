@@ -1,0 +1,101 @@
+<div>
+
+<app-navbar></app-navbar>
+
+<div class="py-10 px-5 max-w-screen-lg mx-auto min-h-screen pt-24 bg-gray-50">
+  <div class="reservation-details">
+    <h2 class="text-2xl font-semibold mb-4">Reservation Details</h2>
+    
+    <!-- Display reservation details in a table when data is available -->
+    <div *ngIf="reservation">
+      <table class="min-w-full bg-white border border-gray-300">
+        <thead>
+          <tr class="bg-gray-100">
+            <th class="px-6 py-3 text-left text-sm font-medium text-gray-500">Field</th>
+            <th class="px-6 py-3 text-left text-sm font-medium text-gray-500">Details</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="px-6 py-4 text-sm text-gray-900"><strong>Event Title:</strong></td>
+            <td class="px-6 py-4 text-sm text-gray-900">{{ reservation.title }}</td>
+          </tr>
+          <tr>
+            <td class="px-6 py-4 text-sm text-gray-900"><strong>Event Time:</strong></td>
+            <td class="px-6 py-4 text-sm text-gray-900">{{ reservation.time }}</td>
+          </tr>
+          <tr>
+            <td class="px-6 py-4 text-sm text-gray-900"><strong>Event Date:</strong></td>
+            <td class="px-6 py-4 text-sm text-gray-900">{{ reservation.date | date }}</td>
+          </tr>
+          <tr>
+            <td class="px-6 py-4 text-sm text-gray-900"><strong>Food Type:</strong></td>
+            <td class="px-6 py-4 text-sm text-gray-900">{{ reservation.foodType }}</td>
+          </tr>
+          <tr>
+            <td class="px-6 py-4 text-sm text-gray-900"><strong>Decoration Type:</strong></td>
+            <td class="px-6 py-4 text-sm text-gray-900">{{ reservation.decorationType }}</td>
+          </tr>
+          <tr>
+            <td class="px-6 py-4 text-sm text-gray-900"><strong>Number of Seats:</strong></td>
+            <td class="px-6 py-4 text-sm text-gray-900">{{ reservation.numberOfSeats }}</td>
+          </tr>
+          <tr>
+            <td class="px-6 py-4 text-sm text-gray-900"><strong>Event Type:</strong></td>
+            <td class="px-6 py-4 text-sm text-gray-900">{{ reservation.typeEvent }}</td>
+          </tr>
+          <tr>
+            <td class="px-6 py-4 text-sm text-gray-900"><strong>Local:</strong></td>
+            <td class="px-6 py-4 text-sm text-gray-900">{{ reservation.local }}</td>
+          </tr>
+          <tr>
+            <td class="px-6 py-4 text-sm text-gray-900"><strong>Transport Included:</strong></td>
+            <td class="px-6 py-4 text-sm text-gray-900">{{ reservation.transport ? 'Yes' : 'No' }}</td>
+          </tr>
+          <tr>
+            <td class="px-6 py-4 text-sm text-gray-900"><strong>Security Included:</strong></td>
+            <td class="px-6 py-4 text-sm text-gray-900">{{ reservation.security ? 'Yes' : 'No' }}</td>
+          </tr>
+          <tr>
+            <td class="px-6 py-4 text-sm text-gray-900"><strong>Status:</strong></td>
+            <td class="px-6 py-4 text-sm text-gray-900">
+              <span [ngClass]="{
+                'text-green-500': reservation.status === 'Approved', 
+                'text-yellow-500': reservation.status === 'Pending', 
+                'text-red-500': reservation.status === 'Rejected'
+              }">
+                {{ reservation.status }}
+              </span>
+            </td>
+          </tr>
+          <tr>
+            <td class="px-6 py-4 text-sm text-gray-900"><strong>Entertainment Options:</strong></td>
+            <td class="px-6 py-4 text-sm text-gray-900">
+              <span *ngIf="reservation.entertainment.length > 0; else noEntertainment">
+                {{ reservation.entertainment.join(', ') }}
+              </span>
+              <ng-template #noEntertainment>
+                No entertainment options selected.
+              </ng-template>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+  
+      <!-- Back Button -->
+      <div class="mt-4">
+        <button class="bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-800" (click)="goBack()">
+          Back to Reservations
+        </button>
+      </div>
+    </div>
+  
+    <!-- Show a loading message while reservation data is being fetched -->
+    <div *ngIf="!reservation || !reservation._id">
+      <p>Loading reservation details...</p>
+    </div>
+  </div>
+</div>
+
+</div>
+

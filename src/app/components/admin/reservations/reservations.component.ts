@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, EventEmitter, Input, Output } from '@angular/core';
+import { BookingService } from '../../../services/booking.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-reservations',
@@ -6,17 +8,41 @@ import { Component } from '@angular/core';
   templateUrl: './reservations.component.html',
   styleUrl: './reservations.component.css'
 })
-export class ReservationsComponent {
- // Example reservation data
- reservations = [
-  { customer: 'John Smith', event: 'Wedding Reception', date: '2025-06-15', status: 'Pending' },
-  { customer: 'Sarah Johnson', event: 'Corporate Dinner', date: '2025-07-22', status: 'Approved' },
-  { customer: 'Michael Brown', event: 'Birthday Party', date: '2025-08-10', status: 'Pending' },
-  { customer: 'Emily Davis', event: 'Anniversary Celebration', date: '2025-09-05', status: 'Approved' },
-];
+export class ReservationsComponent implements OnInit {
 
-// Change reservation status (approve/reject)
-changeStatus(reservation: any, status: string) {
-  reservation.status = status;
+  @Input() activeTab: string = 'reservations';
+  @Output() onTabChange = new EventEmitter<string>();
+
+  reservations: any[] = [];  // Placeholder for reservation data
+
+  constructor(private bookingService: BookingService, private router: Router) {}
+
+  ngOnInit(): void {
+    this.getEvents();
+  }
+
+  getEvents(): void {
+    // Replace with your actual service method to fetch reservations
+    this.bookingService.getEvents().subscribe((res: any) => {
+      this.reservations = res;
+    });
+  }
+
+  changeStatus(id: any, event: Event): void {
+    const selectElement = event.target as HTMLSelectElement;
+    const status = selectElement.value;
+
+    if (status) {
+      this.bookingService.updateEventStatus(id, status).subscribe((res: any) => {
+        console.log(res);
+        this.getEvents();
+      });
+    }
+  }
+
+  // When the "Details" button is clicked, set the active tab to 'reservation-details' and pass the reservation ID
+  sendReservationDetails(id: string): void {
+    this.router.navigate(['/reservation-details', id]);
+  }
 }
-}
+

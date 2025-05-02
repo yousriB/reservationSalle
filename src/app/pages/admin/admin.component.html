@@ -5,7 +5,7 @@
     <h1 class="text-3xl font-bold mb-1">Admin Dashboard</h1>
     <p class="text-gray-600 mb-6">Manage reservations, users, and services</p>
     <!-- Tabs for Reservations, Users, Services -->
-    <div  class="mb-6 text-center bg-gray-100 border border-gray-200 w-fit rounded-md p-1 space-x-1">
+    <div class="mb-6 text-center bg-gray-100 border border-gray-200 w-fit rounded-md p-1 space-x-1">
       <button (click)="setActiveTab('reservations')" [class.bg-white]="activeTab === 'reservations'" 
               class="px-6 py-1 text-lg font-medium text-gray-700 hover:bg-gray-50 rounded-md">
         Reservations
@@ -22,7 +22,7 @@
   
     <!-- Reservations Tab Content -->
     <div *ngIf="activeTab === 'reservations'">
-      <app-reservations></app-reservations>
+      <app-reservations [activeTab]="activeTab" (onTabChange)="setActiveTab($event)"></app-reservations>
     </div>
   
     <!-- Users Tab Content -->
@@ -37,4 +37,3 @@
   </div>
   <app-footer></app-footer>
 </div>
-  
