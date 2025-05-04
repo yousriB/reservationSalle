@@ -40,6 +40,7 @@
               <option value="Approved">Approved</option>
               <option value="Rejected">Rejected</option>
             </select>
+            <button (click)="deleteReservation(reservation._id)" class="bg-red-600 text-white py-1 px-2 rounded-md hover:bg-red-800">Delete</button>
             <button (click)="sendReservationDetails(reservation._id)" class="bg-blue-600 text-white py-1 px-2 rounded-md hover:bg-blue-800">Details</button>
           </td>
         </tr>

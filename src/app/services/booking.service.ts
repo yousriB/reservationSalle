@@ -1,6 +1,35 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { catchError } from 'rxjs/operators';
+
+
+interface BookingForm {
+  title: string;
+  time: string;
+  date: string;
+  duration: number;
+  paymentMethod: string;
+  foodType: string;
+  decorationType: string;
+  numberOfSeats: number;
+  typeEvent: string;
+  local: string;
+  transport: boolean;
+  security: boolean;
+  entertainment: string[];
+  userId: string;
+}
+
+interface CreateEventResponse {
+  message: string;
+  event: {
+    id: string;
+    title: string;
+    date: Date;
+    status: string;
+  };
+}
 
 @Injectable({
   providedIn: 'root'
@@ -10,8 +39,13 @@ export class BookingService {
 
   constructor(private http: HttpClient) { }
 
-  createEvent(event: any): Observable<any> {
-    return this.http.post<any>(`${this.apiUrl}/create`, event);
+  createEvent(event: BookingForm): Observable<CreateEventResponse> {
+    return this.http.post<CreateEventResponse>(`${this.apiUrl}/create`, event).pipe(
+      catchError(error => {
+        console.error('Error creating event:', error);
+        throw error; // Re-throw to let the component handle it
+      })
+    );
   }
   getEventsByUserId(userId: string): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}/user/${userId}`);
@@ -25,5 +59,8 @@ export class BookingService {
   }
   getEventById(id: string): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}/${id}`);
+  }
+  deleteEvent(id: string): Observable<any> {
+    return this.http.delete<any>(`${this.apiUrl}/${id}`);
   }
 }

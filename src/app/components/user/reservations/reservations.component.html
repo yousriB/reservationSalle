@@ -9,6 +9,7 @@
           <th class="px-6 py-3 text-left text-sm font-medium text-gray-500">Type</th>
           <th class="px-6 py-3 text-left text-sm font-medium text-gray-500">Date</th>
           <th class="px-6 py-3 text-left text-sm font-medium text-gray-500">Status</th>
+          <th class="px-6 py-3 text-left text-sm font-medium text-gray-500">Actions</th>
         </tr>
       </thead>
       <tbody>
@@ -17,9 +18,13 @@
           <td class="px-6 py-4 text-base text-gray-900 border-b border-b-gray-200">{{ reservation.typeEvent }}</td>
           <td class="px-6 py-4 text-base text-gray-900 border-b border-b-gray-200">{{ reservation.date | date }}</td>
           <td class="px-6 py-4 text-base text-gray-900 border-b border-b-gray-200">
-            <span [ngClass]="{'text-green-500': reservation.status === 'Confirmed', 'text-yellow-500': reservation.status === 'Pending'}">
+            <span [ngClass]="{'text-green-500': reservation.status === 'Approved', 'text-yellow-500': reservation.status === 'Pending'}">
               {{ reservation.status }}
             </span>
+          </td>
+          <td class="px-6 py-4 text-base text-gray-900 border-b border-b-gray-200 space-x-2 space-y-2">
+            <button *ngIf="reservation.status === 'Pending'" (click)="deleteReservation(reservation._id)" class="text-white bg-red-500 hover:bg-red-600 px-4 py-1 rounded-md">Delete</button>
+            <button (click)="sendReservationDetails(reservation._id)" class="bg-blue-600 text-white py-1 px-2 rounded-md hover:bg-blue-800">Details</button>
           </td>
         </tr>
       </tbody>

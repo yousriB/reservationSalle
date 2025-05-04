@@ -25,6 +25,10 @@ export class UserComponent implements OnInit {
        // Redirect to login if no token is found
        this.router.navigate(['/login']);
      }
+     const role = localStorage.getItem('role');
+     if (role !== 'user') {
+       this.router.navigate(['/admin']);
+     }
      this.getCurrentUser(userId);
   }
   getCurrentUser(userId:any) {

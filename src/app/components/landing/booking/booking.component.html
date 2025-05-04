@@ -1,155 +1,502 @@
-<section class="py-20 bg-gray-50">
+<section class="py-12 bg-gray-50">
   <app-navbar></app-navbar>
-  <div class="mx-auto max-w-4xl px-4 pt-4">
+  <div class="mx-auto max-w-5xl px-4 pt-8">
     <div class="text-center mb-8">
-      <h2 class="text-3xl font-bold text-gray-900 mb-4">Book an Event</h2>
-      <p class="text-lg text-gray-600">Fill in the details below to book your event with us</p>
+      <h2 class="text-3xl font-bold text-gray-900 mb-2">Book Your Event</h2>
+      <p class="text-lg text-gray-600">
+        Complete the form below to reserve your perfect event
+      </p>
     </div>
 
-    <div class="bg-white p-8 rounded-lg shadow-md ">
-      <form (ngSubmit)="submitForm()" class="grid grid-cols-2 gap-4">
+    <div class="bg-white p-8 rounded-xl shadow-lg">
+      <form
+        (ngSubmit)="submitForm()"
+        class="grid grid-cols-1 md:grid-cols-2 gap-6"
+      >
+        <!-- Basic Information -->
+        <div class="md:col-span-2">
+          <h3 class="text-xl font-semibold mb-4 text-gray-800 border-b pb-2">
+            Event Details
+          </h3>
+        </div>
+
         <div class="mb-4">
-          <label for="title" class="block text-sm font-medium text-gray-700">Event Title</label>
-          <input id="title" [(ngModel)]="bookingForm.title" name="title" type="text" required
-            class="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
-            placeholder="Enter the event title" #titleInput="ngModel" />
-          <div *ngIf="titleInput.invalid && (titleInput.dirty || titleInput.touched)" class="text-red-500 text-sm mt-1">
-            Event title is required.
+          <label
+            for="title"
+            class="block text-sm font-medium text-gray-700 mb-1"
+            >Event Title*</label
+          >
+          <input
+            id="title"
+            [(ngModel)]="bookingForm.title"
+            name="title"
+            type="text"
+            required
+            class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            placeholder="e.g., John's Birthday Party"
+            #titleInput="ngModel"
+          />
+          <div
+            *ngIf="
+              titleInput.invalid && (titleInput.dirty || titleInput.touched)
+            "
+            class="text-red-500 text-sm mt-1"
+          >
+            Please provide an event title
           </div>
         </div>
 
         <div class="mb-4">
-          <label for="time" class="block text-sm font-medium text-gray-700">Event Time</label>
-          <input id="time" [(ngModel)]="bookingForm.time" name="time" type="time" required
-            class="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400" #timeInput="ngModel" />
-          <div *ngIf="timeInput.invalid && (timeInput.dirty || timeInput.touched)" class="text-red-500 text-sm mt-1">
-            Event time is required.
-          </div>
-        </div>
-
-        <div class="mb-4">
-          <label for="date" class="block text-sm font-medium text-gray-700">Event Date</label>
-          <input id="date" [(ngModel)]="bookingForm.date" name="date" type="date" required
-            class="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400" #dateInput="ngModel" />
-          <div *ngIf="dateInput.invalid && (dateInput.dirty || dateInput.touched)" class="text-red-500 text-sm mt-1">
-            Event date is required.
-          </div>
-        </div>
-
-        <div class="mb-4">
-          <label for="foodType" class="block text-sm font-medium text-gray-700">Food Type</label>
-          <select name="foodType" id="foodType" [(ngModel)]="bookingForm.foodType" required class="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400" #foodTypeInput="ngModel">
-            <option value="" disabled selected>Select food type</option>
-            <option value="italian">Italian</option>
-            <option value="buffet">Buffet</option>
-            <option value="vegan">Vegan</option>
-          </select>
-          <div *ngIf="foodTypeInput.invalid && (foodTypeInput.dirty || foodTypeInput.touched)" class="text-red-500 text-sm mt-1">
-            Please select a food type.
-          </div>
-        </div>
-
-        <div class="mb-4">
-          <label for="decorationType" class="block text-sm font-medium text-gray-700">Decoration Type</label>
-          <select name="decorationType" id="decorationType" [(ngModel)]="bookingForm.decorationType" required class="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400" #decorationTypeInput="ngModel">
-            <option value="" disabled selected>Select decoration type</option>
-            <option value="floral">Floral</option>
-            <option value="modern">Modern</option>
-            <option value="vintage">Vintage</option>
-          </select>
-          <div *ngIf="decorationTypeInput.invalid && (decorationTypeInput.dirty || decorationTypeInput.touched)" class="text-red-500 text-sm mt-1">
-            Please select a decoration type.
-          </div>
-        </div>
-
-        <div class="mb-4">
-          <label for="numberOfSeats" class="block text-sm font-medium text-gray-700">Number of Seats</label>
-          <input id="numberOfSeats" [(ngModel)]="bookingForm.numberOfSeats" name="numberOfSeats" type="number" required
-            class="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
-            placeholder="Enter number of seats" #numberOfSeatsInput="ngModel" />
-          <div *ngIf="numberOfSeatsInput.invalid && (numberOfSeatsInput.dirty || numberOfSeatsInput.touched)" class="text-red-500 text-sm mt-1">
-            Number of seats is required.
-          </div>
-        </div>
-
-        <div class="mb-4">
-          <label for="typeEvent" class="block text-sm font-medium text-gray-700">Event Type</label>
-          <select id="typeEvent" [(ngModel)]="bookingForm.typeEvent" name="typeEvent" required
-            class="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400" #typeEventInput="ngModel">
+          <label
+            for="typeEvent"
+            class="block text-sm font-medium text-gray-700 mb-1"
+            >Event Type*</label
+          >
+          <select
+            id="typeEvent"
+            [(ngModel)]="bookingForm.typeEvent"
+            name="typeEvent"
+            required
+            class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            #typeEventInput="ngModel"
+          >
             <option value="" disabled selected>Select event type</option>
-            <option value="birthday">Birthday</option>
-            <option value="marriage">Marriage</option>
+            <option *ngFor="let type of eventTypes" [value]="type.value">
+              {{ type.label }}
+            </option>
           </select>
-          <div *ngIf="typeEventInput.invalid && (typeEventInput.dirty || typeEventInput.touched)" class="text-red-500 text-sm mt-1">
-            Please select an event type.
+          <div
+            *ngIf="
+              typeEventInput.invalid &&
+              (typeEventInput.dirty || typeEventInput.touched)
+            "
+            class="text-red-500 text-sm mt-1"
+          >
+            Please select an event type
           </div>
         </div>
 
         <div class="mb-4">
-          <label for="local" class="block text-sm font-medium text-gray-700">Location</label>
-          <select id="local" [(ngModel)]="bookingForm.local" name="local" required
-            class="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400" #localInput="ngModel">
-            <option value="" disabled selected>Select location</option>
-            <option value="salle 1">Salle 1</option>
-            <option value="salle2">Salle 2</option>
-            <option value="home">Home</option>
-          </select>
-          <div *ngIf="localInput.invalid && (localInput.dirty || localInput.touched)" class="text-red-500 text-sm mt-1">
-            Please select a location.
+          <label for="date" class="block text-sm font-medium text-gray-700 mb-1"
+            >Date*</label
+          >
+          <input
+            id="date"
+            [(ngModel)]="bookingForm.date"
+            name="date"
+            type="date"
+            required
+            [min]="minDate"
+            class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            #dateInput="ngModel"
+          />
+          <div
+            *ngIf="dateInput.invalid && (dateInput.dirty || dateInput.touched)"
+            class="text-red-500 text-sm mt-1"
+          >
+            Please select a date
           </div>
         </div>
 
         <div class="mb-4">
-          <label class="flex items-center">
-            <input type="checkbox" [(ngModel)]="bookingForm.transport" name="transport"
-              class="h-4 w-4 text-blue-600 focus:ring-blue-400 border-gray-300 rounded" />
-            <span class="ml-2 text-sm text-gray-700">Require Transport</span>
-          </label>
+          <label for="time" class="block text-sm font-medium text-gray-700 mb-1"
+            >Start Time*</label
+          >
+          <input
+            id="time"
+            [(ngModel)]="bookingForm.time"
+            name="time"
+            type="time"
+            required
+            class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            #timeInput="ngModel"
+          />
+          <div
+            *ngIf="timeInput.invalid && (timeInput.dirty || timeInput.touched)"
+            class="text-red-500 text-sm mt-1"
+          >
+            Please select a time
           </div>
+        </div>
 
         <div class="mb-4">
-          <label class="flex items-center">
-            <input type="checkbox" [(ngModel)]="bookingForm.security" name="security"
-              class="h-4 w-4 text-blue-600 focus:ring-blue-400 border-gray-300 rounded" />
-            <span class="ml-2 text-sm text-gray-700">Require Security</span>
-          </label>
+          <label
+            for="duration"
+            class="block text-sm font-medium text-gray-700 mb-1"
+            >Duration (hours)*</label
+          >
+          <input
+            id="duration"
+            [(ngModel)]="bookingForm.duration"
+            name="duration"
+            type="number"
+            min="1"
+            max="12"
+            required
+            class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            placeholder="4"
+            #durationInput="ngModel"
+          />
+          <div
+            *ngIf="
+              durationInput.invalid &&
+              (durationInput.dirty || durationInput.touched)
+            "
+            class="text-red-500 text-sm mt-1"
+          >
+            Duration must be 1-12 hours
           </div>
+        </div>
 
-        <div class="mb-6">
-          <label class="block text-sm font-medium text-gray-700">Entertainment Options</label>
+        <div class="mb-4">
+          <label
+            for="numberOfSeats"
+            class="block text-sm font-medium text-gray-700 mb-1"
+            >Number of Guests*</label
+          >
+          <input
+            id="numberOfSeats"
+            [(ngModel)]="bookingForm.numberOfSeats"
+            name="numberOfSeats"
+            type="number"
+            min="1"
+            required
+            class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            placeholder="50"
+            #numberOfSeatsInput="ngModel"
+          />
+          <div
+            *ngIf="
+              numberOfSeatsInput.invalid &&
+              (numberOfSeatsInput.dirty || numberOfSeatsInput.touched)
+            "
+            class="text-red-500 text-sm mt-1"
+          >
+            Please enter number of guests
+          </div>
+        </div>
+
+        <!-- Location Selection -->
+        <div class="col-span-2">
+          <h3 class="text-xl font-semibold mb-4 text-gray-800 border-b pb-2">
+            Venue Selection
+          </h3>
+          <p class="text-sm text-gray-500 mb-4">
+            Choose your preferred event location
+          </p>
+
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+            <div
+              *ngFor="let location of locationOptions"
+              class="border-2 rounded-xl p-3 cursor-pointer transition-all hover:shadow-md"
+              [class.border-blue-500]="bookingForm.local === location.value"
+              [class.border-gray-200]="bookingForm.local !== location.value"
+              (click)="bookingForm.local = location.value"
+            >
+              <img
+                [src]="location.image"
+                [alt]="location.label"
+                class="w-full h-32 object-cover rounded-lg mb-2"
+              />
+              <h4 class="font-medium text-center">{{ location.label }}</h4>
+              <p class="text-xs text-gray-500 text-center">
+                Capacity: {{ location.capacity }} people
+              </p>
+            </div>
+          </div>
+          <div
+            *ngIf="
+              !bookingForm.local && (localInput.dirty || localInput.touched)
+            "
+            class="text-red-500 text-sm mt-2"
+          >
+            Please select a location
+          </div>
+          <input
+            type="hidden"
+            [(ngModel)]="bookingForm.local"
+            name="local"
+            #localInput="ngModel"
+            required
+          />
+        </div>
+
+        <!-- Food -->
+        <div class="col-span-2">
+          <h3 class="text-xl font-semibold mb-4 text-gray-800 border-b pb-2">
+            Catering
+          </h3>
+        </div>
+
+        <div class="mb-4 col-span-2">
+          <label class="block text-sm font-medium text-gray-700 mb-2"
+            >Food Style*</label
+          >
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+            <div
+              *ngFor="let food of foodOptions"
+              class="border rounded-lg p-2 cursor-pointer transition-all hover:shadow-sm"
+              [class.border-blue-500]="bookingForm.foodType === food.value"
+              [class.border-gray-200]="bookingForm.foodType !== food.value"
+              (click)="bookingForm.foodType = food.value"
+            >
+              <img
+                [src]="food.image"
+                [alt]="food.label"
+                class="w-full h-32 object-cover rounded-md mb-1"
+              />
+              <p class="text-xs text-center">{{ food.label }}</p>
+            </div>
+          </div>
+          <div
+            *ngIf="
+              !bookingForm.foodType &&
+              (foodTypeInput.dirty || foodTypeInput.touched)
+            "
+            class="text-red-500 text-sm mt-1"
+          >
+            Please select a food style
+          </div>
+          <input
+            type="hidden"
+            [(ngModel)]="bookingForm.foodType"
+            name="foodType"
+            #foodTypeInput="ngModel"
+            required
+          />
+        </div>
+        <!-- Decoration -->
+        <div class="col-span-2">
+          <h3 class="text-xl font-semibold mb-4 text-gray-800 border-b pb-2">
+            Decoration
+          </h3>
+        </div>
+        <div class="mb-4 col-span-2">
+          <label class="block text-sm font-medium text-gray-700 mb-2"
+            >Decoration Theme*</label
+          >
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+            <div
+              *ngFor="let decor of decorationOptions"
+              class="border rounded-lg p-2 cursor-pointer transition-all hover:shadow-sm"
+              [class.border-blue-500]="
+                bookingForm.decorationType === decor.value
+              "
+              [class.border-gray-200]="
+                bookingForm.decorationType !== decor.value
+              "
+              (click)="bookingForm.decorationType = decor.value"
+            >
+              <img
+                [src]="decor.image"
+                [alt]="decor.label"
+                class="w-full h-32 object-cover rounded-md mb-1"
+              />
+              <p class="text-xs text-center">{{ decor.label }}</p>
+            </div>
+          </div>
+          <div
+            *ngIf="
+              !bookingForm.decorationType &&
+              (decorationTypeInput.dirty || decorationTypeInput.touched)
+            "
+            class="text-red-500 text-sm mt-1"
+          >
+            Please select a decoration theme
+          </div>
+          <input
+            type="hidden"
+            [(ngModel)]="bookingForm.decorationType"
+            name="decorationType"
+            #decorationTypeInput="ngModel"
+            required
+          />
+        </div>
+
+        <!-- Entertainment -->
+        <div class="col-span-2">
+          <h3 class="text-xl font-semibold mb-4 text-gray-800 border-b pb-2">
+            Entertainment
+          </h3>
+        </div>
+        <div class="mb-4 col-span-2">
+          <label class="block text-sm font-medium text-gray-700 mb-2"
+            >Entertainment Theme*</label
+          >
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+            <div
+              *ngFor="let entertainment of entertainmentOptions"
+              class="border rounded-lg p-2 cursor-pointer transition-all hover:shadow-sm"
+              [class.border-blue-500]="
+                bookingForm.entertainment === entertainment.value
+              "
+              [class.border-gray-200]="
+                bookingForm.entertainment !== entertainment.value
+              "
+              (click)="bookingForm.entertainment = entertainment.value"
+            >
+              <img
+                [src]="entertainment.image"
+                [alt]="entertainment.label"
+                class="w-full h-32 object-cover rounded-md mb-1"
+              />
+              <p class="text-xs text-center">{{ entertainment.label }}</p>
+            </div>
+          </div>
+          <div
+            *ngIf="
+              !bookingForm.entertainment &&
+              (entertainmentInput.dirty || entertainmentInput.touched)
+            "
+            class="text-red-500 text-sm mt-1"
+          >
+            Please select a entertainment theme
+          </div>
+          <input
+            type="hidden"
+            [(ngModel)]="bookingForm.entertainment"
+            name="entertainment"
+            #entertainmentInput="ngModel"
+            required
+          />
+        </div>
+
+        <div class="mb-4">
+          <label class="block text-sm font-medium text-gray-700 mb-3"
+            >Other Services</label
+          >
           <div class="space-y-2">
-            <label class="flex items-center">
-              <input type="checkbox" [(ngModel)]="entertainment.dj" name="dj"
-                class="h-4 w-4 text-blue-600 focus:ring-blue-400 border-gray-300 rounded"
-                (change)="updateEntertainment()" />
-              <span class="ml-2 text-sm text-gray-700">DJ</span>
+            <label class="flex items-center space-x-2">
+              <input
+                type="checkbox"
+                [(ngModel)]="bookingForm.transport"
+                name="transport"
+                class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+              />
+              <span class="text-sm text-gray-700"
+                >Transportation Service (+$100)</span
+              >
             </label>
-            <label class="flex items-center">
-              <input type="checkbox" [(ngModel)]="entertainment.magicShow" name="magicShow"
-                class="h-4 w-4 text-blue-600 focus:ring-blue-400 border-gray-300 rounded"
-                (change)="updateEntertainment()" />
-              <span class="ml-2 text-sm text-gray-700">Magic Show</span>
-            </label>
-            <label class="flex items-center">
-              <input type="checkbox" [(ngModel)]="entertainment.fireWork" name="fireWork"
-                class="h-4 w-4 text-blue-600 focus:ring-blue-400 border-gray-300 rounded"
-                (change)="updateEntertainment()" />
-              <span class="ml-2 text-sm text-gray-700">Fire Work</span>
-            </label>
-            <label class="flex items-center">
-              <input type="checkbox" [(ngModel)]="entertainment.dancer" name="dancer"
-                class="h-4 w-4 text-blue-600 focus:ring-blue-400 border-gray-300 rounded"
-                (change)="updateEntertainment()" />
-              <span class="ml-2 text-sm text-gray-700">Dancer</span>
+            <label class="flex items-center space-x-2">
+              <input
+                type="checkbox"
+                [(ngModel)]="bookingForm.security"
+                name="security"
+                class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+              />
+              <span class="text-sm text-gray-700"
+                >Security Personnel (+$100)</span
+              >
             </label>
           </div>
-          </div>
+        </div>
 
-        <div class="flex justify-end col-span-2 ">
-          <button type="submit"
-            [disabled]="!titleInput.valid || !timeInput.valid || !dateInput.valid || !foodTypeInput.valid || !decorationTypeInput.valid || !numberOfSeatsInput.valid || !typeEventInput.valid || !localInput.valid"
-            class="w-fit h-fit py-3 px-5 bg-blue-600 text-white rounded-md">
-            Submit Booking
+        <!-- Payment Method -->
+        <div class="md:col-span-2">
+          <h3 class="text-xl font-semibold mb-4 text-gray-800 border-b pb-2">
+            Payment Information
+          </h3>
+
+          <div class="mb-4">
+            <label
+              for="paymentMethod"
+              class="block text-sm font-medium text-gray-700 mb-1"
+              >Payment Method*</label
+            >
+            <select
+              id="paymentMethod"
+              [(ngModel)]="bookingForm.paymentMethod"
+              name="paymentMethod"
+              required
+              class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              #paymentMethodInput="ngModel"
+            >
+              <option value="" disabled selected>Select payment method</option>
+              <option
+                *ngFor="let method of paymentMethods"
+                [value]="method.value"
+              >
+                {{ method.label }}
+              </option>
+            </select>
+            <div
+              *ngIf="
+                paymentMethodInput.invalid &&
+                (paymentMethodInput.dirty || paymentMethodInput.touched)
+              "
+              class="text-red-500 text-sm mt-1"
+            >
+              Please select a payment method
+            </div>
+          </div>
+        </div>
+        <!-- Price Summary -->
+        <div class="md:col-span-2 bg-gray-50 p-6 rounded-lg">
+          <h3 class="text-xl font-semibold mb-4 text-gray-800 border-b pb-2">
+            Price Summary
+          </h3>
+
+          <div class="space-y-3">
+            <!-- Venue Price -->
+            <div class="flex justify-between">
+              <span class="text-gray-600">Venue Rental</span>
+              <span class="font-medium">$200</span>
+            </div>
+
+            <!-- Food Price -->
+            <div class="flex justify-between">
+              <span class="text-gray-600">Catering Service</span>
+              <span class="font-medium">$100</span>
+            </div>
+
+            <!-- Decoration Price -->
+            <div class="flex justify-between">
+              <span class="text-gray-600">Decoration</span>
+              <span class="font-medium">$100</span>
+            </div>
+
+            <!-- Entertainment Price -->
+            <div
+              class="flex justify-between"
+              *ngIf="bookingForm.entertainment.length > 0"
+            >
+              <span class="text-gray-600">Entertainment</span>
+              <span class="font-medium"
+                >${{ bookingForm.entertainment.length * 100 }}</span
+              >
+            </div>
+
+            <!-- Additional Services -->
+            <div class="flex justify-between" *ngIf="bookingForm.transport">
+              <span class="text-gray-600">Transportation Service</span>
+              <span class="font-medium">$100</span>
+            </div>
+
+            <div class="flex justify-between" *ngIf="bookingForm.security">
+              <span class="text-gray-600">Security Personnel</span>
+              <span class="font-medium">$100</span>
+            </div>
+
+            <!-- Total Price -->
+            <div
+              class="flex justify-between pt-4 border-t border-gray-200 mt-3"
+            >
+              <span class="text-lg font-semibold">Total Price</span>
+              <span class="text-lg font-bold text-blue-600"
+                >${{ calculateTotalPrice() }}</span
+              >
+            </div>
+          </div>
+        </div>
+
+        <!-- Submit Button -->
+        <div class="md:col-span-2 flex justify-end pt-4">
+          <button
+            type="submit"
+            [disabled]="!isFormValid()"
+            class="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors disabled:bg-blue-300"
+          >
+            Confirm Booking
           </button>
         </div>
       </form>

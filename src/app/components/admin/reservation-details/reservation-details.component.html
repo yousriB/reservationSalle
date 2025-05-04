@@ -1,101 +1,194 @@
 <div>
+  <app-navbar></app-navbar>
 
-<app-navbar></app-navbar>
-
-<div class="py-10 px-5 max-w-screen-lg mx-auto min-h-screen pt-24 bg-gray-50">
-  <div class="reservation-details">
-    <h2 class="text-2xl font-semibold mb-4">Reservation Details</h2>
-    
-    <!-- Display reservation details in a table when data is available -->
-    <div *ngIf="reservation">
-      <table class="min-w-full bg-white border border-gray-300">
-        <thead>
-          <tr class="bg-gray-100">
-            <th class="px-6 py-3 text-left text-sm font-medium text-gray-500">Field</th>
-            <th class="px-6 py-3 text-left text-sm font-medium text-gray-500">Details</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td class="px-6 py-4 text-sm text-gray-900"><strong>Event Title:</strong></td>
-            <td class="px-6 py-4 text-sm text-gray-900">{{ reservation.title }}</td>
-          </tr>
-          <tr>
-            <td class="px-6 py-4 text-sm text-gray-900"><strong>Event Time:</strong></td>
-            <td class="px-6 py-4 text-sm text-gray-900">{{ reservation.time }}</td>
-          </tr>
-          <tr>
-            <td class="px-6 py-4 text-sm text-gray-900"><strong>Event Date:</strong></td>
-            <td class="px-6 py-4 text-sm text-gray-900">{{ reservation.date | date }}</td>
-          </tr>
-          <tr>
-            <td class="px-6 py-4 text-sm text-gray-900"><strong>Food Type:</strong></td>
-            <td class="px-6 py-4 text-sm text-gray-900">{{ reservation.foodType }}</td>
-          </tr>
-          <tr>
-            <td class="px-6 py-4 text-sm text-gray-900"><strong>Decoration Type:</strong></td>
-            <td class="px-6 py-4 text-sm text-gray-900">{{ reservation.decorationType }}</td>
-          </tr>
-          <tr>
-            <td class="px-6 py-4 text-sm text-gray-900"><strong>Number of Seats:</strong></td>
-            <td class="px-6 py-4 text-sm text-gray-900">{{ reservation.numberOfSeats }}</td>
-          </tr>
-          <tr>
-            <td class="px-6 py-4 text-sm text-gray-900"><strong>Event Type:</strong></td>
-            <td class="px-6 py-4 text-sm text-gray-900">{{ reservation.typeEvent }}</td>
-          </tr>
-          <tr>
-            <td class="px-6 py-4 text-sm text-gray-900"><strong>Local:</strong></td>
-            <td class="px-6 py-4 text-sm text-gray-900">{{ reservation.local }}</td>
-          </tr>
-          <tr>
-            <td class="px-6 py-4 text-sm text-gray-900"><strong>Transport Included:</strong></td>
-            <td class="px-6 py-4 text-sm text-gray-900">{{ reservation.transport ? 'Yes' : 'No' }}</td>
-          </tr>
-          <tr>
-            <td class="px-6 py-4 text-sm text-gray-900"><strong>Security Included:</strong></td>
-            <td class="px-6 py-4 text-sm text-gray-900">{{ reservation.security ? 'Yes' : 'No' }}</td>
-          </tr>
-          <tr>
-            <td class="px-6 py-4 text-sm text-gray-900"><strong>Status:</strong></td>
-            <td class="px-6 py-4 text-sm text-gray-900">
-              <span [ngClass]="{
-                'text-green-500': reservation.status === 'Approved', 
-                'text-yellow-500': reservation.status === 'Pending', 
-                'text-red-500': reservation.status === 'Rejected'
-              }">
-                {{ reservation.status }}
-              </span>
-            </td>
-          </tr>
-          <tr>
-            <td class="px-6 py-4 text-sm text-gray-900"><strong>Entertainment Options:</strong></td>
-            <td class="px-6 py-4 text-sm text-gray-900">
-              <span *ngIf="reservation.entertainment.length > 0; else noEntertainment">
-                {{ reservation.entertainment.join(', ') }}
-              </span>
-              <ng-template #noEntertainment>
-                No entertainment options selected.
-              </ng-template>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-  
-      <!-- Back Button -->
-      <div class="mt-4">
-        <button class="bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-800" (click)="goBack()">
-          Back to Reservations
-        </button>
+  <div class="py-10 px-5 max-w-6xl mx-auto min-h-screen pt-24 bg-gray-50">
+    <div class="reservation-details">
+      <!-- Loading state -->
+      <div *ngIf="isLoading" class="text-center py-10">
+        <div class="inline-block animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-blue-500 mb-2"></div>
+        <p>Loading reservation details...</p>
       </div>
+
+      <!-- Main content -->
+      <div *ngIf="!isLoading && reservation" class="bg-white rounded-xl shadow-md overflow-hidden">
+        <!-- Event summary -->
+        <div class="p-6 border-b">
+       <div class="flex justify-between items-center">
+        <h3 class="text-xl font-semibold mb-2">{{ reservation.title }}</h3>
+        <span class="px-4 py-2 rounded-md text-sm font-medium"
+        [ngClass]="{
+          'bg-green-100 text-green-800': reservation?.status === 'Approved',
+          'bg-yellow-100 text-yellow-800': reservation?.status === 'Pending',
+          'bg-red-100 text-red-800': reservation?.status === 'Rejected'
+        }">
+        {{ reservation?.status }}
+      </span>
+       </div>
+          <div class="flex flex-wrap items-center gap-4 text-gray-600">
+            <div class="flex items-center">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+              </svg>
+              <span>{{ reservation.date | date:'fullDate' }} at {{ reservation.time }}</span>
+            </div>
+            <div class="flex items-center">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              <span>{{ reservation.duration }} hours</span>
+            </div>
+            <div class="flex items-center">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+              </svg>
+              <span>{{ reservation.numberOfSeats }} guests</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Grid layout -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 p-6">
+          <!-- Left column -->
+          <div class="space-y-6">
+            <!-- Venue details -->
+            <div class="bg-gray-50 p-4 rounded-lg">
+              <h4 class="font-medium text-lg mb-3 flex items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                </svg>
+                Venue
+              </h4>
+              <div class="flex items-start">
+                <img [src]="getLocationImage(reservation.local)" 
+                     [alt]="getLocationLabel(reservation.local)" 
+                     class="w-24 h-24 object-cover rounded-lg mr-4">
+                <div>
+                  <p class="font-medium">{{ getLocationLabel(reservation.local) }}</p>
+                  <p class="text-sm text-gray-500 mt-1">Capacity: {{ reservation.numberOfSeats }} guests</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Catering details -->
+            <div class="bg-gray-50 p-4 rounded-lg">
+              <h4 class="font-medium text-lg mb-3 flex items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+                </svg>
+                Catering
+              </h4>
+              <div class="flex items-start">
+                <img [src]="getFoodImage(reservation.foodType)" 
+                     [alt]="getFoodLabel(reservation.foodType)" 
+                     class="w-24 h-24 object-cover rounded-lg mr-4">
+                <div>
+                  <p class="font-medium">{{ getFoodLabel(reservation.foodType) }}</p>
+                  <p class="text-sm text-gray-500 mt-1">Menu included</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right column -->
+          <div class="space-y-6">
+            <!-- Decoration details -->
+            <div class="bg-gray-50 p-4 rounded-lg">
+              <h4 class="font-medium text-lg mb-3 flex items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z" />
+                </svg>
+                Decoration
+              </h4>
+              <div class="flex items-start">
+                <img [src]="getDecorationImage(reservation.decorationType)" 
+                     [alt]="getDecorationLabel(reservation.decorationType)" 
+                     class="w-24 h-24 object-cover rounded-lg mr-4">
+                <div>
+                  <p class="font-medium">{{ getDecorationLabel(reservation.decorationType) }}</p>
+                  <p class="text-sm text-gray-500 mt-1">Full setup included</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Services details -->
+            <div class="bg-gray-50 p-4 rounded-lg">
+              <h4 class="font-medium text-lg mb-3 flex items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                </svg>
+                Additional Services
+              </h4>
+              <div class="space-y-2">
+                <div class="flex items-center">
+                  <span class="w-4 h-4 rounded-full mr-2"
+                    [ngClass]="{
+                      'bg-green-500': reservation.transport,
+                      'bg-gray-300': !reservation.transport
+                    }"></span>
+                  <span>Transportation Service</span>
+                </div>
+                <div class="flex items-center">
+                  <span class="w-4 h-4 rounded-full mr-2"
+                    [ngClass]="{
+                      'bg-green-500': reservation.security,
+                      'bg-gray-300': !reservation.security
+                    }"></span>
+                  <span>Security Personnel</span>
+                </div>
+                <div *ngIf="reservation.entertainment.length > 0" class="pt-2">
+                  <p class="text-sm font-medium">Entertainment:</p>
+                  <ul class="list-disc list-inside text-sm text-gray-600 flex items-center">
+                    <li *ngFor="let item of reservation.entertainment" class="flex flex-col items-center">
+                      <img [src]="getEntertainmentImage(item)" 
+                     [alt]="getEntertainmentLabel(item)" 
+                     class="w-24 h-24 object-cover rounded-lg mr-4">
+                      <span class="text-center uppercase font-medium">{{ getEntertainmentLabel(item) }}</span>
+                      
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Payment and notes -->
+        <div class="bg-gray-50 p-6 border-t">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+              <h4 class="font-medium text-lg mb-3 flex items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
+                </svg>
+                Payment Information
+              </h4>
+              <div class="space-y-1 uppercase">
+                <p><span class="text-gray-500">Method:</span> {{ getPaymentMethodLabel(reservation.paymentMethod) }}</p>
+                <p class="text-green-500 text-2xl font-medium"><span class="text-gray-500">Total Price:</span> {{ reservation.totalPrice }}$</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div *ngIf="userRole === 'admin'" class="flex space-x-3 p-5 justify-end">
+          <button  
+                  (click)="approveReservation()"
+                  class="px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700">
+            Approve
+          </button>
+          <button 
+                  (click)="rejectReservation()"
+                  class="px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700">
+            Reject
+          </button>
+          <button (click)="goBack()" 
+                  class="px-4 py-2 bg-gray-200 text-gray-800 rounded-md hover:bg-gray-300">
+            Back
+          </button>
+        </div>
+      </div>
+   
     </div>
-  
-    <!-- Show a loading message while reservation data is being fetched -->
-    <div *ngIf="!reservation || !reservation._id">
-      <p>Loading reservation details...</p>
-    </div>
+
   </div>
 </div>
-
-</div>
-

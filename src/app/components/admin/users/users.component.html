@@ -16,13 +16,11 @@
       <tr *ngFor="let user of users" class="border-b border-gray-300">
         <td class="px-6 py-4 text-sm text-gray-900">{{ user.name }}</td>
         <td class="px-6 py-4 text-sm text-gray-900">{{ user.email }}</td>
-        <td class="px-6 py-4 text-sm text-gray-900">{{ user.phone }}</td>
+        <td class="px-6 py-4 text-sm text-gray-900">{{ user.phoneNumber }}</td>
         <td class="px-6 py-4 text-sm text-gray-900">
-          <select class="border border-gray-300 px-2 py-1 rounded-md">
-            <option value="">Select Action</option>
-            <option value="edit">Edit</option>
-            <option value="delete">Delete</option>
-          </select>
+          <button (click)="deleteUser(user._id)" class="border border-gray-300 px-2 py-1 rounded-md">
+            Delete
+          </button>
         </td>
       </tr>
     </tbody>

@@ -10,6 +10,7 @@ import { Router } from '@angular/router';
 })
 export class ReservationsComponent implements OnInit {
 
+
   @Input() activeTab: string = 'reservations';
   @Output() onTabChange = new EventEmitter<string>();
 
@@ -27,6 +28,13 @@ export class ReservationsComponent implements OnInit {
       this.reservations = res;
     });
   }
+
+  deleteReservation(id: any) {
+    this.bookingService.deleteEvent(id).subscribe((res: any) => {
+      console.log(res);
+      this.getEvents();
+    });
+    }
 
   changeStatus(id: any, event: Event): void {
     const selectElement = event.target as HTMLSelectElement;
