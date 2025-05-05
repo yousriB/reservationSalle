@@ -127,7 +127,7 @@
             <input [(ngModel)]="editForm.value" type="text" class="w-full p-2 border rounded-md">
           </div>
 
-          <div *ngIf="currentTab === 'entertainment'">
+          <div>
             <label class="block text-sm font-medium text-gray-700 mb-1">Image URL</label>
             <input [(ngModel)]="editForm.image" type="text" class="w-full p-2 border rounded-md">
             <img *ngIf="editForm.image" [src]="editForm.image" class="mt-2 h-32 object-cover rounded-md">
