@@ -18,6 +18,10 @@
               class="px-6 py-1 text-lg font-medium text-gray-700 hover:bg-gray-50 rounded-md">
         Services
       </button>
+      <button (click)="setActiveTab('feedback')" [class.bg-white]="activeTab === 'feedback'" 
+              class="px-6 py-1 text-lg font-medium text-gray-700 hover:bg-gray-50 rounded-md">
+        Feedback
+      </button>
     </div>
   
     <!-- Reservations Tab Content -->
@@ -33,6 +37,9 @@
     <!-- Services Tab Content -->
     <div *ngIf="activeTab === 'services'">
       <app-services-management></app-services-management>
+    </div>
+    <div *ngIf="activeTab === 'feedback'">
+      <app-feedback></app-feedback>
     </div>
   </div>
   <app-footer></app-footer>

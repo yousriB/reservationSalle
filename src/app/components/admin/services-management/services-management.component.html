@@ -133,7 +133,7 @@
             <img *ngIf="editForm.image" [src]="editForm.image" class="mt-2 h-32 object-cover rounded-md">
           </div>
 
-          <div class="flex justify-end space-x-3 pt-4">
+          <div *ngIf="" class="flex justify-end space-x-3 pt-4">
             <button (click)="closeModal()" class="px-4 py-2 border rounded-md hover:bg-gray-50">Cancel</button>
             <button (click)="saveChanges()" class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700">
               Save Changes

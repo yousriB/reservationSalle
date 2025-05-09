@@ -26,6 +26,7 @@ import { AboutComponent } from './components/landing/about/about.component';
 import { TipsComponent } from './components/landing/tips/tips.component';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { ReservationDetailsComponent } from './components/admin/reservation-details/reservation-details.component';
+import { FeedbackComponent } from './components/admin/feedback/feedback.component';
 
 
 @NgModule({
@@ -51,6 +52,7 @@ import { ReservationDetailsComponent } from './components/admin/reservation-deta
     AboutComponent,
     TipsComponent,
     ReservationDetailsComponent,
+    FeedbackComponent,
 ],
   imports: [
     BrowserModule,

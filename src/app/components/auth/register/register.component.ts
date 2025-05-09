@@ -22,12 +22,34 @@ export class RegisterComponent {
   register() {
     this.errorMessage = '';
     this.successMessage = '';
-
+  
+    if (!this.name.trim() || !this.email.trim() || !this.phoneNumber.trim() || !this.password.trim() || !this.confirmPassword.trim()) {
+      this.errorMessage = 'All fields are required.';
+      return;
+    }
+  
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(this.email)) {
+      this.errorMessage = 'Invalid email format.';
+      return;
+    }
+  
+    const phoneRegex = /^\d{8}$/; // example: 8 digits for Tunisia
+    if (!phoneRegex.test(this.phoneNumber)) {
+      this.errorMessage = 'Phone number must be 8 digits.';
+      return;
+    }
+  
+    if (this.password.length < 8) {
+      this.errorMessage = 'Password must be at least 8 characters long.';
+      return;
+    }
+  
     if (this.password !== this.confirmPassword) {
       this.errorMessage = 'Passwords do not match!';
       return;
     }
-
+  
     this.userService.registerUser(this.name, this.email, this.phoneNumber, this.password).subscribe({
       next: (response) => {
         this.successMessage = 'Registration successful! Redirecting to login...';
@@ -40,4 +62,5 @@ export class RegisterComponent {
       }
     });
   }
+  
 }

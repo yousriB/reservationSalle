@@ -1,27 +1,27 @@
 <nav class="bg-white z-10 text-black py-4 px-8 flex justify-between items-center shadow-md absolute top-0 w-full">
-    <!-- Logo Section -->
-    <div class="flex items-center">
-      <div class="bg-black text-white rounded-full w-10 h-10 flex justify-center items-center mr-4">
-        <span class="font-bold text-xl">EE</span>
-      </div>
-      <a href="/" class="text-2xl font-bold">Elegant Events</a>
+  <div class="flex items-center">
+    <div class="bg-black text-white rounded-full w-10 h-10 flex justify-center items-center mr-4">
+      <span class="font-bold text-xl">EE</span>
     </div>
-  
-    <!-- Navigation Links (Hidden on small screens) -->
-    <ul class="hidden lg:flex space-x-6">
-      <li><a href="#" class="hover:text-blue-500">Home</a></li>
-      <li><a href="#services" class="hover:text-blue-500">Services</a></li>
-      <li><a href="#gallery" class="hover:text-blue-500">Gallery</a></li>
-      <li><a href="#contact" class="hover:text-blue-500">Contact</a></li>
-    </ul>
-  
-    <!-- Book Now Button -->
-    <div class="flex items-center space-x-5">
-        <a href="/user"> <i class="fas fa-user text-black"></i></a>
-      <a href="/booking" class="bg-black text-white px-6 py-2 rounded hover:bg-gray-800">
-        Book Now 
-      </a>
-    </div>
-  </nav>
-  
-  
+    <a href="/" class="text-2xl font-bold">Elegant Events</a>
+  </div>
+
+  <ul class="hidden lg:flex space-x-6">
+    <li><a href="#" class="hover:text-blue-500">Home</a></li>
+    <li><a href="#services" class="hover:text-blue-500">Services</a></li>
+    <li><a href="#gallery" class="hover:text-blue-500">Gallery</a></li>
+    <li><a href="#contact" class="hover:text-blue-500">Contact</a></li>
+  </ul>
+
+  <div class="flex items-center space-x-5">
+    <a href="/user" *ngIf="isLoggedIn"><i class="fas fa-user text-black"></i></a>
+    <a href="/booking" class="bg-black text-white px-6 py-2 rounded hover:bg-gray-800">Book Now</a>
+
+    <ng-container *ngIf="isLoggedIn; else loggedOut">
+      <button (click)="logout()" class="text-black hover:text-red-600">Logout</button>
+    </ng-container>
+    <ng-template #loggedOut>
+      <a routerLink="/login" class="text-black hover:text-blue-600">Login</a>
+    </ng-template>
+  </div>
+</nav>

@@ -12,37 +12,33 @@
       <div class="grid gap-8 md:grid-cols-2">
         <!-- Contact Form -->
         <div class="rounded-lg ">
-          <form class="space-y-4">
-            <!-- Name Inputs -->
+          <form (ngSubmit)="onSubmit()" class="space-y-4">
             <div class="grid gap-4 sm:grid-cols-2">
               <div>
-                <input type="text" placeholder="First Name" class="w-full p-3 border border-gray-300 rounded-md"/>
+                <input type="text" name="firstName" [(ngModel)]="feedback.firstName" placeholder="First Name" class="w-full p-3 border border-gray-300 rounded-md"/>
               </div>
               <div>
-                <input type="text" placeholder="Last Name" class="w-full p-3 border border-gray-300 rounded-md"/>
+                <input type="text" name="lastName" [(ngModel)]="feedback.lastName" placeholder="Last Name" class="w-full p-3 border border-gray-300 rounded-md"/>
               </div>
             </div>
-            
-            <!-- Email Input -->
+          
             <div>
-              <input type="email" placeholder="Email" class="w-full p-3 border border-gray-300 rounded-md"/>
+              <input type="email" name="email" [(ngModel)]="feedback.email" placeholder="Email" class="w-full p-3 border border-gray-300 rounded-md"/>
             </div>
-            
-            <!-- Phone Number Input -->
+          
             <div>
-              <input type="text" placeholder="Phone Number" class="w-full p-3 border border-gray-300 rounded-md"/>
+              <input type="text" name="phoneNumber" [(ngModel)]="feedback.phoneNumber" placeholder="Phone Number" class="w-full p-3 border border-gray-300 rounded-md"/>
             </div>
-            
-            <!-- Message Input -->
+          
             <div>
-              <textarea placeholder="Your Message" rows="4" class="w-full p-3 border border-gray-300 rounded-md"></textarea>
+              <textarea name="description" [(ngModel)]="feedback.description" placeholder="Your Message" rows="4" class="w-full p-3 border border-gray-300 rounded-md"></textarea>
             </div>
-            
-            <!-- Submit Button -->
+          
             <button type="submit" class="w-full bg-black text-white py-3 rounded-md hover:bg-gray-800">
               Send Message
             </button>
           </form>
+          
         </div>
   
         <!-- Contact Information -->
