@@ -16,6 +16,7 @@ export class ReservationDetailsComponent implements OnInit {
   reservation: any = null;
   isLoading = true;
   userRole: string = '';
+  foodPrices: { foodType: string; label: string; image: string; price: number }[] = [];
 
   // Configuration data loaded from backend
   foodOptions: any[] = [];
@@ -70,6 +71,7 @@ export class ReservationDetailsComponent implements OnInit {
       (details: any) => {
         this.reservation = details;
         console.log(this.reservation);
+        this.calculateFoodPrices();
         this.isLoading = false;
       },
       (error: any) => {
@@ -77,6 +79,18 @@ export class ReservationDetailsComponent implements OnInit {
         this.isLoading = false;
       }
     );
+  }
+
+  calculateFoodPrices(): void {
+    this.foodPrices = this.reservation.foodType.map((foodType: string) => {
+      const option = this.foodOptions.find(opt => opt.value === foodType);
+      return {
+        foodType: foodType,
+        label: this.getFoodLabel(foodType),
+        image: this.getFoodImage(foodType),
+        price: option ? option.price : 0
+      };
+    });
   }
 
   // Helper methods to get labels and images

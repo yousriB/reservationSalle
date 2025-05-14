@@ -1,6 +1,7 @@
 import { Component, OnInit, EventEmitter, Input, Output } from '@angular/core';
 import { BookingService } from '../../../services/booking.service';
 import { Router } from '@angular/router';
+import { UserService } from '../../../services/user.service';
 
 @Component({
   selector: 'app-reservations',
@@ -15,8 +16,13 @@ export class ReservationsComponent implements OnInit {
   @Output() onTabChange = new EventEmitter<string>();
 
   reservations: any[] = [];  // Placeholder for reservation data
+  userEmails: { [userId: string]: string } = {};
 
-  constructor(private bookingService: BookingService, private router: Router) {}
+  constructor(
+    private bookingService: BookingService, 
+    private router: Router,
+    private userService: UserService
+  ) {}
 
   ngOnInit(): void {
     this.getEvents();
@@ -26,6 +32,11 @@ export class ReservationsComponent implements OnInit {
     // Replace with your actual service method to fetch reservations
     this.bookingService.getEvents().subscribe((res: any) => {
       this.reservations = res;
+      this.reservations.forEach(reservation => {
+        this.userService.getCurrentUser(reservation.userId).subscribe(user => {
+          this.userEmails[reservation.userId] = user.email;
+        });
+      });
     });
   }
 
@@ -53,4 +64,3 @@ export class ReservationsComponent implements OnInit {
     this.router.navigate(['/reservation-details', id]);
   }
 }
-

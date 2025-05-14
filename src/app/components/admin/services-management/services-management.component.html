@@ -104,6 +104,28 @@
       </div>
     </div>
 
+      <!-- Other Configuration -->
+      <div *ngIf="currentTab === 'others'" class="bg-white p-6 rounded-lg mb-8">
+        <div class="flex justify-between items-center mb-6">
+          <h2 class="text-xl font-semibold">Other Options</h2>
+          <button (click)="openOtherModal()" class="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700">
+            Add New Option
+          </button>
+        </div>
+  
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div *ngFor="let option of otherOptions" class="border rounded-lg p-4 relative group">
+            <img [src]="option.image" [alt]="option.label" class="w-full h-40 object-cover rounded mb-3">
+            <h3 class="font-medium">{{ option.label }}</h3>
+            <p class="text-sm text-gray-500 mb-3">{{ option.value }}</p>
+            <div class="flex space-x-2 opacity-0 group-hover:opacity-100 transition-opacity">
+              <button (click)="editOther(option)" class="text-blue-600 hover:text-blue-800 text-sm">Edit</button>
+              <button (click)="deleteOther(option.value)" class="text-red-600 hover:text-red-800 text-sm">Delete</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
     <!-- Edit Modal -->
     <div *ngIf="showModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
       <div class="bg-white rounded-lg shadow-xl max-w-md w-full p-6">
@@ -132,8 +154,12 @@
             <input [(ngModel)]="editForm.image" type="text" class="w-full p-2 border rounded-md">
             <img *ngIf="editForm.image" [src]="editForm.image" class="mt-2 h-32 object-cover rounded-md">
           </div>
+           <div>
+            <label class="block text-sm font-medium text-gray-700 mb-1">Price</label>
+            <input [(ngModel)]="editForm.price" type="number" class="w-full p-2 border rounded-md">
+          </div>
 
-          <div *ngIf="" class="flex justify-end space-x-3 pt-4">
+          <div  class="flex justify-end space-x-3 pt-4">
             <button (click)="closeModal()" class="px-4 py-2 border rounded-md hover:bg-gray-50">Cancel</button>
             <button (click)="saveChanges()" class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700">
               Save Changes

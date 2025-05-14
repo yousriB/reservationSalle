@@ -6,19 +6,19 @@ import { catchError } from 'rxjs/operators';
 
 interface BookingForm {
   title: string;
-  time: string;
   date: string;
-  duration: number;
   paymentMethod: string;
-  foodType: string;
-  decorationType: string;
+  foodType: string[];
+  decorationType: string[];
   numberOfSeats: number;
   typeEvent: string;
   local: string;
   transport: boolean;
   security: boolean;
   entertainment: string[];
+  others: string[];
   userId: string;
+  totalPrice: number;
 }
 
 interface CreateEventResponse {

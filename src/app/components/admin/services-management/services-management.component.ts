@@ -12,7 +12,8 @@ export class ServicesManagementComponent {
     { id: 'food', name: 'Food Types' },
     { id: 'locations', name: 'Locations' },
     { id: 'decorations', name: 'Decorations' },
-    { id: 'entertainment', name: 'Entertainment' }
+    { id: 'entertainment', name: 'Entertainment' },
+    { id: 'others', name: 'Other' }
   ];
   currentTab = 'food';
 
@@ -21,15 +22,17 @@ export class ServicesManagementComponent {
   locationOptions: any[] = [];
   decorationOptions: any[] = [];
   entertainmentOptions: any[] = [];
+  otherOptions: any[] = [];
 
   // Modal control
-  showModal = false;
+ showModal = false;
   modalTitle = '';
   isEditing = false;
   editForm: any = {
     label: '',
     value: '',
-    image: ''
+    image: '',
+    price: 0
   };
   currentEditingType = '';
 
@@ -44,18 +47,46 @@ export class ServicesManagementComponent {
     this.adminService.getLocationOptions().subscribe(data => this.locationOptions = data);
     this.adminService.getDecorationOptions().subscribe(data => this.decorationOptions = data);
     this.adminService.getEntertainmentOptions().subscribe(data => this.entertainmentOptions = data);
+    this.adminService.getOtherOptions().subscribe(data => this.otherOptions = data);
   }
 
-  // Food Methods
-  openFoodModal(item?: any): void {
-    this.currentEditingType = 'food';
+  //other methodes
+  openOtherModal(item?: any): void {
+    this.currentEditingType = 'other';
     if (item) {
-      this.modalTitle = 'Edit Food Type';
+      this.modalTitle = 'Edit Other Option';
       this.editForm = { ...item };
       this.isEditing = true;
     } else {
-      this.modalTitle = 'Add New Food Type';
+      this.modalTitle = 'Add New Other Option';
       this.editForm = { label: '', value: '', image: '' };
+      this.isEditing = false;
+    }
+    this.showModal = true;
+  }
+
+  editOther(item: any): void {
+    this.openOtherModal(item);
+  }
+
+  deleteOther(value: string): void {
+    if (confirm('Are you sure you want to delete this other option?')) {
+      this.adminService.deleteOtherOption(value).subscribe(() => {
+        this.otherOptions = this.otherOptions.filter(o => o.value !== value);
+      });
+    }
+  }
+
+  // Food Methods
+ openFoodModal(item?: any): void {
+    this.currentEditingType = 'food';
+    if (item) {
+      this.modalTitle = 'Edit Food Type';
+      this.editForm = { ...item, price: item.price };
+      this.isEditing = true;
+    } else {
+      this.modalTitle = 'Add New Food Type';
+      this.editForm = { label: '', value: '', image: '', price: 0 };
       this.isEditing = false;
     }
     this.showModal = true;
@@ -74,15 +105,15 @@ export class ServicesManagementComponent {
   }
 
   // Location Methods
-  openLocationModal(item?: any): void {
+ openLocationModal(item?: any): void {
     this.currentEditingType = 'location';
     if (item) {
       this.modalTitle = 'Edit Location';
-      this.editForm = { ...item };
+      this.editForm = { ...item, price: item.price };
       this.isEditing = true;
     } else {
       this.modalTitle = 'Add New Location';
-      this.editForm = { label: '', value: '', image: '' };
+      this.editForm = { label: '', value: '', image: '', price: 0 };
       this.isEditing = false;
     }
     this.showModal = true;
@@ -169,6 +200,8 @@ export class ServicesManagementComponent {
       this.saveDecorationChanges();
     } else if (this.currentEditingType === 'entertainment') {
       this.saveEntertainmentChanges();
+    } else if (this.currentEditingType === 'other') {
+      this.saveOtherChanges();
     }
   }
 
@@ -231,6 +264,22 @@ export class ServicesManagementComponent {
     } else {
       this.adminService.addEntertainmentOption(this.editForm).subscribe(newOption => {
         this.entertainmentOptions = [...this.entertainmentOptions, newOption];
+        this.closeModal();
+      });
+    }
+  }
+
+  private saveOtherChanges(): void {
+    if (this.isEditing) {
+      this.adminService.updateOtherOption(this.editForm).subscribe(updated => {
+        this.otherOptions = this.otherOptions.map(o => 
+          o.value === updated.value ? updated : o
+        );
+        this.closeModal();
+      });
+    } else {
+      this.adminService.addOtherOption(this.editForm).subscribe(newOption => {
+        this.otherOptions = [...this.otherOptions, newOption];
         this.closeModal();
       });
     }

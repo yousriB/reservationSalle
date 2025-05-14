@@ -4,6 +4,23 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { AdminService } from '../../../services/admin.service';
 
+interface BookingForm {
+  title: string;
+  date: string;
+  paymentMethod: string;
+  foodType: string[];
+  decorationType: string[];
+  numberOfSeats: number;
+  typeEvent: string;
+  local: string;
+  transport: boolean;
+  security: boolean;
+  entertainment: string[];
+  others: string[];
+  userId: string;
+  totalPrice: number;
+}
+
 @Component({
   selector: 'app-booking',
   standalone: false,
@@ -13,6 +30,27 @@ import { AdminService } from '../../../services/admin.service';
 export class BookingComponent implements OnInit {
   minDate: string;
   isLoading = true;
+  locationPrice = 0;
+  foodPrice = 0;
+  decorationPrice = 0;
+  entertainmentPrice = 0;
+  otherPrice = 0;
+
+  get locationPriceTotal(): number {
+    return this.locationPrice;
+  }
+
+  get foodPriceTotal(): number {
+    return this.foodPrice;
+  }
+
+  get decorationPriceTotal(): number {
+    return this.decorationPrice;
+  }
+
+  get entertainmentPriceTotal(): number {
+    return this.entertainmentPrice;
+  }
 
   eventTypes = [
     { value: 'birthday', label: 'Birthday' },
@@ -24,29 +62,28 @@ export class BookingComponent implements OnInit {
   decorationOptions: any[] = [];
   locationOptions: any[] = [];
   entertainmentOptions: any[] = [];
+  otherOptions: any[] = [];
   paymentMethods = [
     { value: 'cash', label: 'Cash' },
     { value: 'card', label: 'Card' },
     { value: 'transfer', label: 'Bank Transfer' }
   ];
 
-  bookingForm = {
+  bookingForm: BookingForm = {
     title: '',
     typeEvent: '',
     date: '',
-    time: '',
-    duration: 4,
     numberOfSeats: 20,
     local: '',
-    foodType: '',
-    decorationType: '',
     transport: false,
     security: false,
-    entertainment: [] as string[],
+    entertainment: [],
     paymentMethod: '',
     userId: localStorage.getItem('userId') || '',
-    notes: '',
-    totalPrice: 0
+    totalPrice: 0,
+    foodType: [],
+    decorationType: [],
+    others: []
   };
 
   constructor(
@@ -71,19 +108,23 @@ export class BookingComponent implements OnInit {
 
   loadConfigurationOptions(): void {
     this.adminService.getFoodOptions().subscribe(options => {
-      this.foodOptions = options;
+      this.foodOptions = options.map(option => ({ ...option, price: option.price || 100 }));
     });
 
     this.adminService.getDecorationOptions().subscribe(options => {
-      this.decorationOptions = options;
+      this.decorationOptions = options.map(option => ({ ...option, price: option.price || 100 }));
     });
 
-    this.adminService.getLocationOptions().subscribe(options => {
-      this.locationOptions = options;
+     this.adminService.getLocationOptions().subscribe(options => {
+      this.locationOptions = options.map(option => ({ ...option, price: option.price || 200 }));
     });
 
     this.adminService.getEntertainmentOptions().subscribe(options => {
-      this.entertainmentOptions = options;
+      this.entertainmentOptions = options.map(option => ({ ...option, price: option.price || 100 }));
+    });
+
+    this.adminService.getOtherOptions().subscribe(options => {
+      this.otherOptions = options.map(option => ({ ...option, price: option.price || 100 }));
     });
   }
 
@@ -100,77 +141,71 @@ export class BookingComponent implements OnInit {
     }
   }
 
+  toggleFoodType(value: string): void {
+    const index = this.bookingForm.foodType.indexOf(value);
+    if (index === -1) {
+      this.bookingForm.foodType.push(value);
+    } else {
+      this.bookingForm.foodType.splice(index, 1);
+    }
+  }
+
+  toggleDecorationType(value: string): void {
+    const index = this.bookingForm.decorationType.indexOf(value);
+    if (index === -1) {
+      this.bookingForm.decorationType.push(value);
+    } else {
+      this.bookingForm.decorationType.splice(index, 1);
+    }
+  }
+
+  toggleOther(value: string): void {
+    const index = this.bookingForm.others.indexOf(value);
+    if (index === -1) {
+      this.bookingForm.others.push(value);
+    } else {
+      this.bookingForm.others.splice(index, 1);
+    }
+  }
+
   isFormValid(): boolean {
     const f = this.bookingForm;
     return !!f.title &&
            !!f.typeEvent &&
            !!f.date &&
-           !!f.time &&
-           f.duration > 0 &&
            f.numberOfSeats > 0 &&
            f.numberOfSeats <= 200 &&
            !!f.local &&
-           !!f.foodType &&
-           !!f.decorationType &&
-           !!f.paymentMethod;
+           !!f.paymentMethod &&
+           f.foodType.length > 0 &&
+           f.decorationType.length > 0 &&
+           f.entertainment.length > 0 &&
+           f.others.length > 0;
   }
 
   submitForm(): void {
-    const { title, typeEvent, date, time, duration, numberOfSeats, local, foodType, decorationType, paymentMethod } = this.bookingForm;
+    this.bookingForm.totalPrice = parseFloat(this.calculateTotalPrice());
 
-    if (!title.trim()) {
-      this.snackBar.open('Event title is required', 'Close', { duration: 3000, panelClass: ['error-snackbar'] });
-      return;
-    }
-
-    if (!typeEvent) {
-      this.snackBar.open('Please select an event type', 'Close', { duration: 3000, panelClass: ['error-snackbar'] });
-      return;
-    }
-
-    if (!date) {
-      this.snackBar.open('Date is required', 'Close', { duration: 3000, panelClass: ['error-snackbar'] });
-      return;
-    }
-
-    if (!time) {
-      this.snackBar.open('Time is required', 'Close', { duration: 3000, panelClass: ['error-snackbar'] });
-      return;
-    }
-
-    if (duration <= 0) {
-      this.snackBar.open('Duration must be greater than 0', 'Close', { duration: 3000, panelClass: ['error-snackbar'] });
-      return;
-    }
-
-    if (numberOfSeats <= 0 || numberOfSeats > 200) {
-      this.snackBar.open('Number of seats must be between 1 and 200', 'Close', { duration: 3000, panelClass: ['error-snackbar'] });
-      return;
-    }
-
-    if (!local) {
-      this.snackBar.open('Please choose a location', 'Close', { duration: 3000, panelClass: ['error-snackbar'] });
-      return;
-    }
-
-    if (!foodType) {
-      this.snackBar.open('Please select a food option', 'Close', { duration: 3000, panelClass: ['error-snackbar'] });
-      return;
-    }
-
-    if (!decorationType) {
-      this.snackBar.open('Please select a decoration option', 'Close', { duration: 3000, panelClass: ['error-snackbar'] });
-      return;
-    }
-
-    if (!paymentMethod) {
-      this.snackBar.open('Please choose a payment method', 'Close', { duration: 3000, panelClass: ['error-snackbar'] });
-      return;
-    }
+    const bookingFormCopy: BookingForm = {
+      title: this.bookingForm.title,
+      typeEvent: this.bookingForm.typeEvent,
+      date: this.bookingForm.date,
+      numberOfSeats: this.bookingForm.numberOfSeats,
+      local: this.bookingForm.local,
+      paymentMethod: this.bookingForm.paymentMethod,
+      transport: this.bookingForm.transport,
+      security: this.bookingForm.security,
+      userId: this.bookingForm.userId,
+      totalPrice: this.bookingForm.totalPrice,
+      foodType: this.bookingForm.foodType,
+      decorationType: this.bookingForm.decorationType,
+      entertainment: this.bookingForm.entertainment,
+      others: this.bookingForm.others
+    };
 
     this.bookingForm.totalPrice = parseFloat(this.calculateTotalPrice());
 
-    this.bookingService.createEvent(this.bookingForm).subscribe({
+    this.bookingService.createEvent(bookingFormCopy).subscribe({
       next: (response) => {
         this.snackBar.open('Booking created successfully!', 'Close', {
           duration: 3000,
@@ -186,20 +221,46 @@ export class BookingComponent implements OnInit {
         }
         this.snackBar.open(errorMessage, 'Close', {
           duration: 5000,
-          panelClass: ['error-snackbar']
+          panelClass: ['success-snackbar']
         });
       }
     });
   }
 
-  calculateBasePrice(): number {
+ calculateBasePrice(): number {
     let total = 0;
 
-    total += 200; // Venue
-    total += 100; // Food
-    total += 100; // Decoration
+    const selectedLocation = this.locationOptions.find(location => location.value === this.bookingForm.local);
+    this.locationPrice = selectedLocation ? selectedLocation.price : 200;
+    total += this.locationPrice;
 
-    total += this.bookingForm.entertainment.length * 100;
+    this.foodPrice = 0;
+    this.bookingForm.foodType.forEach(foodType => {
+      const selectedFood = this.foodOptions.find(food => food.value === foodType);
+      this.foodPrice += selectedFood ? selectedFood.price : 0;
+    });
+    total += this.foodPrice;
+
+    this.decorationPrice = 0;
+    this.bookingForm.decorationType.forEach(decorationType => {
+      const selectedDecoration = this.decorationOptions.find(decoration => decoration.value === decorationType);
+      this.decorationPrice += selectedDecoration ? selectedDecoration.price : 0;
+    });
+    total += this.decorationPrice;
+
+    this.entertainmentPrice = 0;
+    this.bookingForm.entertainment.forEach(entertainmentType => {
+      const selectedEntertainment = this.entertainmentOptions.find(entertainment => entertainment.value === entertainmentType);
+      this.entertainmentPrice += selectedEntertainment ? selectedEntertainment.price : 0;
+    });
+    total += this.entertainmentPrice;
+
+    this.otherPrice = 0;
+    this.bookingForm.others.forEach(otherType => {
+      const selectedOther = this.otherOptions.find(other => other.value === otherType);
+      this.otherPrice += selectedOther ? selectedOther.price : 0;
+    });
+    total += this.otherPrice;
 
     if (this.bookingForm.transport) total += 100;
     if (this.bookingForm.security) total += 100;
@@ -208,12 +269,11 @@ export class BookingComponent implements OnInit {
   }
 
   calculateTotalPrice(): string {
-    const duration = this.bookingForm.duration * 10;
     const guests = this.bookingForm.numberOfSeats;
     const guestMultiplier = guests * 5;
 
     const basePrice = this.calculateBasePrice();
-    const totalPrice = basePrice + duration + guestMultiplier;
+    const totalPrice = basePrice + guestMultiplier;
 
     return totalPrice.toFixed(2);
   }
