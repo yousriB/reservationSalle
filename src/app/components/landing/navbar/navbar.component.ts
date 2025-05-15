@@ -9,11 +9,13 @@ import { Router } from '@angular/router';
 })
 export class NavbarComponent implements OnInit {
   isLoggedIn = false;
+  role = '';
 
   constructor(private router: Router) {}
 
   ngOnInit(): void {
     this.isLoggedIn = !!localStorage.getItem('userId');
+    this.role = localStorage.getItem('role') || '';
   }
 
   logout(): void {

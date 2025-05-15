@@ -176,11 +176,7 @@ export class BookingComponent implements OnInit {
            f.numberOfSeats > 0 &&
            f.numberOfSeats <= 200 &&
            !!f.local &&
-           !!f.paymentMethod &&
-           f.foodType.length > 0 &&
-           f.decorationType.length > 0 &&
-           f.entertainment.length > 0 &&
-           f.others.length > 0;
+           !!f.paymentMethod;
   }
 
   submitForm(): void {
